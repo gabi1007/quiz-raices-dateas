@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>¿Cuánto sabés de tus raíces familiares? — dateas.com</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css">
+<style>
+:root {
+  --color-text-primary: #1c1008;
+  --color-text-secondary: #78716c;
+  --color-text-success: #15803d;
+  --color-text-danger: #dc2626;
+  --color-text-warning: #d97706;
+  --color-background-primary: #ffffff;
+  --color-background-secondary: #f5f0ea;
+  --color-background-tertiary: #faf7f2;
+  --color-border-tertiary: rgba(28,16,8,0.12);
+  --color-border-secondary: rgba(28,16,8,0.25);
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  background:var(--color-background-tertiary);
+  color:var(--color-text-primary);
+  min-height:100vh;
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+  padding:40px 20px;
+}
+#app{width:100%;max-width:680px;}
+button{
+  font-family:inherit;
+  font-size:14px;
+  font-weight:400;
+  color:var(--color-text-primary);
+  background:var(--color-background-primary);
+  border:0.5px solid var(--color-border-secondary);
+  border-radius:var(--border-radius-md);
+  padding:9px 18px;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  transition:background 0.15s;
+}
+button:hover{background:var(--color-background-secondary);}
+button:active{transform:scale(0.98);}
+input[type=text]{
+  font-family:inherit;
+  font-size:14px;
+  color:var(--color-text-primary);
+  background:var(--color-background-primary);
+  border:0.5px solid var(--color-border-tertiary);
+  border-radius:var(--border-radius-md);
+  padding:8px 6px;
+  width:100%;
+  outline:none;
+  text-align:center;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  transition:border-color 0.15s;
+}
+input[type=text]:focus{border-color:var(--color-border-secondary);}
+input[type=text]::placeholder{color:var(--color-border-secondary);text-transform:none;letter-spacing:0;}
+a{color:inherit;}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);}
+.star-fill{color:var(--color-text-warning);}
+.star-empty{color:var(--color-border-tertiary);}
+.bar-pass{background:var(--color-text-success);}
+.bar-fail{background:var(--color-text-danger);}
+</style>
+</head>
+<body>
+<h1 class="sr-only">Desafío genealógico de dateas.com: ¿Cuánto sabés de tus raíces familiares?</h1>
+<div id="app"></div>
+<script>
+const LEVEL_NAMES=["Padres","Abuelos","Bisabuelos","Tatarabuelos","Choznos"];
+function lname(l){return l<LEVEL_NAMES.length?LEVEL_NAMES[l]:"Generación "+(l+1);}
+function scount(l){return Math.pow(2,l+1);}
+function slabel(level,idx){
+  if(level===0)return idx===0?"Padre":"Madre";
+  if(level===1)return["Abuelo pat.","Abuela pat.","Abuelo mat.","Abuela mat."][idx];
+  return lname(level).replace(/s$/,"")+" "+(idx+1);
+}
+
+const SCORE=[
+  {stars:1,title:"Sin raíces registradas",emoji:"🌱",msg:"Tu árbol genealógico está esperando ser explorado. dateas.com tiene millones de registros históricos que pueden revelar tu historia familiar."},
+  {stars:2,title:"Curioso de sus raíces",emoji:"🔍",msg:"Conocés a tus padres, pero los abuelos ya se te escapan. En dateas.com podés buscar actas, padrones y registros para completar el siguiente nivel."},
+  {stars:3,title:"Conocedor familiar",emoji:"📖",msg:"¡Llegaste a los abuelos! Eso ya te pone por encima del promedio. dateas.com puede ayudarte a cruzar datos y descubrir el mundo de tus bisabuelos."},
+  {stars:4,title:"Investigador genealógico",emoji:"🧐",msg:"Conocés tres generaciones de antepasados. Sos parte de quienes guardan viva la memoria familiar. ¿Te animás a ir más lejos con dateas.com?"},
+  {stars:5,title:"Experto en raíces",emoji:"🏆",msg:"¡Extraordinario! Tatarabuelos y más — eso es historia de más de un siglo. dateas.com tiene documentos que pueden llevar tu árbol aún más lejos."},
+  {stars:5,title:"Guardián de la memoria",emoji:"🌳",msg:"¡Leyenda! Conocés tu árbol genealógico en profundidad. Sos un verdadero custodio del pasado familiar. dateas.com es tu hogar natural."},
+];
+function gscore(lp){return SCORE[Math.min(lp,SCORE.length-1)];}
+
+let phase="intro",curLevel=0,answers=[],history=[];
+function getCount(){return scount(curLevel);}
+function getFilled(){return answers.filter(a=>a.trim().length>0).length;}
+function canAdvance(){const c=getCount();return(c-getFilled())<=c/2;}
+
+function render(){
+  const app=document.getElementById("app");
+  if(phase==="intro")app.innerHTML=renderIntro();
+  else if(phase==="quiz")app.innerHTML=renderQuiz();
+  else app.innerHTML=renderResult();
+  bind();
+}
+
+function renderIntro(){
+  return`<div style="max-width:580px;margin:0 auto;">
+  <div style="text-align:center;margin-bottom:1.75rem;">
+    <div style="font-size:11px;color:var(--color-text-secondary);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">dateas.com presenta</div>
+    <div style="font-size:40px;margin-bottom:10px;">🌳</div>
+    <h2 style="font-size:22px;font-weight:500;margin:0 0 8px;line-height:1.35;">¿Cuánto sabés de tus raíces familiares?</h2>
+    <p style="color:var(--color-text-secondary);margin:0;font-size:15px;">El desafío genealógico</p>
+  </div>
+  <div style="background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.5rem;margin-bottom:1.5rem;">
+    <p style="margin:0 0 1rem;line-height:1.75;color:var(--color-text-primary);font-size:15px;">
+      ¿Podés nombrar a tus abuelos? ¿Y a tus bisabuelos? Este desafío te lleva nivel por nivel por tu árbol genealógico, para ver hasta dónde llegás.
+    </p>
+    <div style="border-top:0.5px solid var(--color-border-tertiary);padding-top:1rem;">
+      <p style="font-size:12px;font-weight:500;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:0.5px;margin:0 0 10px;">Cómo funciona</p>
+      <div style="font-size:14px;color:var(--color-text-primary);display:flex;flex-direction:column;gap:9px;line-height:1.65;">
+        <div style="display:flex;gap:10px;"><span style="color:var(--color-text-secondary);flex-shrink:0;">→</span><span>Ingresá las <strong style="font-weight:500;">iniciales</strong> de nombre y apellido de cada antepasado (ej: <code style="font-size:12px;background:var(--color-background-secondary);padding:1px 5px;border-radius:3px;">JG</code> para Juan García)</span></div>
+        <div style="display:flex;gap:10px;"><span style="color:var(--color-text-secondary);flex-shrink:0;">→</span><span>Avanzarás nivel a nivel: padres → abuelos → bisabuelos → tatarabuelos → ...</span></div>
+        <div style="display:flex;gap:10px;"><span style="color:var(--color-text-secondary);flex-shrink:0;">→</span><span>El desafío se detiene cuando dejás en blanco <strong style="font-weight:500;">más de la mitad</strong> de los casilleros de un nivel</span></div>
+        <div style="display:flex;gap:10px;"><span style="color:var(--color-text-secondary);flex-shrink:0;">→</span><span>Al final evaluamos cuánto conocés de tus raíces</span></div>
+      </div>
+    </div>
+  </div>
+  <div style="text-align:center;">
+    <button id="btn-start" style="font-size:15px;padding:10px 32px;">Comenzar el desafío &nbsp;<i class="ti ti-arrow-right" aria-hidden="true"></i></button>
+  </div>
+</div>`;
+}
+
+function renderQuiz(){
+  const count=getCount();
+  const filled=getFilled();
+  const ok=canAdvance();
+  const needed=count/2;
+  const showLabels=count<=8;
+  const cols=count<=2?2:count<=8?4:count<=16?4:8;
+  const gap=count>16?"5px":"12px";
+  const inpSize=count>16?"11px":"14px";
+  const inpPad=count>16?"5px 2px":"8px 6px";
+
+  const dots=history.map(()=>`<div style="width:20px;height:5px;border-radius:3px;background:var(--color-text-success);"></div>`).join("")+
+    `<div style="width:28px;height:7px;border-radius:3px;background:var(--color-border-secondary);"></div>`;
+
+  const inputs=answers.map((v,i)=>`
+    <div style="text-align:center;">
+      ${showLabels?`<div style="font-size:11px;color:var(--color-text-secondary);margin-bottom:4px;min-height:26px;display:flex;align-items:center;justify-content:center;line-height:1.3;">${slabel(curLevel,i)}</div>`:""}
+      <input type="text" id="i${i}" data-idx="${i}" maxlength="6" value="${v}" placeholder="—" autocomplete="off"
+        style="font-size:${inpSize};padding:${inpPad};"/>
+      ${!showLabels?`<div style="font-size:9px;color:var(--color-text-secondary);margin-top:2px;">${i+1}</div>`:""}
+    </div>`).join("");
+
+  return`<div style="max-width:640px;margin:0 auto;">
+  <div style="text-align:center;margin-bottom:1.5rem;">
+    <div style="font-size:11px;color:var(--color-text-secondary);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">dateas.com · nivel ${curLevel+1}</div>
+    <h2 style="font-size:22px;font-weight:500;margin:0 0 6px;">${lname(curLevel)}</h2>
+    <p style="color:var(--color-text-secondary);font-size:13px;margin:0 0 14px;">
+      ${count} antepasado${count!==1?"s":""} &nbsp;·&nbsp; Necesitás completar al menos ${needed} para avanzar
+    </p>
+    <div style="display:flex;justify-content:center;align-items:center;gap:5px;">${dots}</div>
+  </div>
+  <div style="background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.5rem;margin-bottom:1rem;">
+    <p style="font-size:13px;color:var(--color-text-secondary);text-align:center;margin:0 0 1.25rem;">
+      Iniciales de nombre y apellido (ej: <code style="background:var(--color-background-secondary);padding:1px 5px;border-radius:3px;font-size:12px;">JG</code>). Dejá en blanco lo que no sepas.
+    </p>
+    <div style="display:grid;grid-template-columns:repeat(${cols},minmax(0,1fr));gap:${gap};margin-bottom:1.25rem;">${inputs}</div>
+    <div style="display:flex;justify-content:center;align-items:center;gap:16px;font-size:13px;padding-top:1rem;border-top:0.5px solid var(--color-border-tertiary);">
+      <span style="color:var(--color-text-secondary);"><strong id="filled-display" style="color:var(--color-text-primary);font-weight:500;">${filled}</strong> de ${count} completados</span>
+      <span style="color:var(--color-border-secondary);">|</span>
+      <span id="status-text" style="color:${ok?"var(--color-text-success)":"var(--color-text-secondary)"};">
+        ${ok?'<i class="ti ti-check" aria-hidden="true"></i> Podés avanzar':`Necesitás ${needed-filled} más`}
+      </span>
+    </div>
+  </div>
+  <div style="text-align:center;">
+    <button id="btn-continue" style="font-size:15px;padding:10px 32px;">${ok?"Continuar":"Finalizar desafío"} &nbsp;<i class="ti ti-arrow-right" aria-hidden="true"></i></button>
+  </div>
+</div>`;
+}
+
+function renderResult(){
+  const lp=history.filter(h=>(h.total-h.filled)<=h.total/2).length;
+  const tf=history.reduce((s,h)=>s+h.filled,0);
+  const ts=history.reduce((s,h)=>s+h.total,0);
+  const pct=ts>0?Math.round(tf/ts*100):0;
+  const sc=gscore(lp);
+  const starsHtml=Array.from({length:5},(_,i)=>
+    `<span class="${i<sc.stars?"star-fill":"star-empty"}" style="font-size:22px;">${i<sc.stars?"★":"☆"}</span>`
+  ).join("");
+  const bars=history.map(h=>{
+    const p=Math.round(h.filled/h.total*100);
+    const ok=(h.total-h.filled)<=h.total/2;
+    return`<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+      <div style="font-size:12px;color:var(--color-text-secondary);width:105px;flex-shrink:0;">${lname(h.level)}</div>
+      <div style="flex:1;height:8px;background:var(--color-background-secondary);border-radius:4px;overflow:hidden;">
+        <div class="${ok?"bar-pass":"bar-fail"}" style="height:100%;width:${p}%;border-radius:4px;"></div>
+      </div>
+      <div style="font-size:12px;color:var(--color-text-secondary);width:42px;text-align:right;">${h.filled}/${h.total}</div>
+      <i class="ti ti-${ok?"check":"x"}" style="font-size:14px;color:var(--color-text-${ok?"success":"danger"});" aria-hidden="true"></i>
+    </div>`;
+  }).join("");
+  const lastGen=lp>0?lname(lp-1):"—";
+  const lastGenSize=lastGen.length>10?"14px":"20px";
+
+  return`<div style="max-width:580px;margin:0 auto;">
+  <div style="text-align:center;margin-bottom:1.75rem;">
+    <div style="font-size:11px;color:var(--color-text-secondary);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">dateas.com · tu resultado</div>
+    <div style="font-size:44px;margin-bottom:10px;">${sc.emoji}</div>
+    <h2 style="font-size:22px;font-weight:500;margin:0 0 10px;">${sc.title}</h2>
+    <div style="display:flex;justify-content:center;gap:3px;">${starsHtml}</div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:1.5rem;">
+    <div style="background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:1rem;text-align:center;">
+      <div style="font-size:11px;color:var(--color-text-secondary);margin-bottom:6px;">Niveles completados</div>
+      <div style="font-size:22px;font-weight:500;">${lp}</div>
+    </div>
+    <div style="background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:1rem;text-align:center;">
+      <div style="font-size:11px;color:var(--color-text-secondary);margin-bottom:6px;">Última generación</div>
+      <div style="font-size:${lastGenSize};font-weight:500;">${lastGen}</div>
+    </div>
+    <div style="background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:1rem;text-align:center;">
+      <div style="font-size:11px;color:var(--color-text-secondary);margin-bottom:6px;">Antepasados registrados</div>
+      <div style="font-size:22px;font-weight:500;">${pct}%</div>
+    </div>
+  </div>
+  <div style="background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.25rem;margin-bottom:1.25rem;">
+    <p style="font-size:12px;font-weight:500;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:0.5px;margin:0 0 1rem;">Detalle por generación</p>
+    ${bars||'<p style="font-size:13px;color:var(--color-text-secondary);margin:0;">No se completó ningún nivel.</p>'}
+  </div>
+  <div style="background:var(--color-background-secondary);border-radius:var(--border-radius-lg);padding:1.25rem;margin-bottom:1.5rem;">
+    <p style="margin:0;line-height:1.75;color:var(--color-text-primary);font-size:15px;">${sc.msg}</p>
+  </div>
+  <div style="display:flex;gap:12px;flex-wrap:wrap;">
+    <a href="https://dateas.com" target="_blank" rel="noopener"
+      style="flex:1;text-align:center;padding:10px 20px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);text-decoration:none;font-size:14px;background:var(--color-background-secondary);display:inline-flex;align-items:center;justify-content:center;gap:6px;">
+      <i class="ti ti-search" aria-hidden="true"></i> Buscar en dateas.com ↗
+    </a>
+    <button id="btn-restart" style="flex-shrink:0;font-size:14px;padding:10px 20px;">
+      <i class="ti ti-refresh" aria-hidden="true"></i> Intentar de nuevo
+    </button>
+  </div>
+</div>`;
+}
+
+function updateStatus(){
+  const count=getCount();
+  const filled=getFilled();
+  const ok=canAdvance();
+  const needed=count/2;
+  const fd=document.getElementById("filled-display");
+  const st=document.getElementById("status-text");
+  const bc=document.getElementById("btn-continue");
+  if(fd)fd.textContent=filled;
+  if(st){
+    st.style.color=ok?"var(--color-text-success)":"var(--color-text-secondary)";
+    st.innerHTML=ok?'<i class="ti ti-check" aria-hidden="true"></i> Podés avanzar':`Necesitás ${Math.max(0,needed-filled)} más`;
+  }
+  if(bc)bc.innerHTML=(ok?"Continuar":"Finalizar desafío")+' &nbsp;<i class="ti ti-arrow-right" aria-hidden="true"></i>';
+}
+
+function handleContinue(){
+  const count=getCount();
+  const filled=getFilled();
+  const empty=count-filled;
+  history=[...history,{level:curLevel,filled,total:count}];
+  if(empty>count/2||curLevel>=7){phase="result";render();}
+  else{curLevel++;answers=new Array(scount(curLevel)).fill("");render();}
+}
+
+function bind(){
+  const bs=document.getElementById("btn-start");
+  if(bs)bs.addEventListener("click",()=>{phase="quiz";curLevel=0;answers=new Array(scount(0)).fill("");history=[];render();});
+  document.querySelectorAll("[data-idx]").forEach(inp=>{
+    inp.addEventListener("input",e=>{
+      const i=parseInt(e.target.dataset.idx);
+      const clean=e.target.value.toUpperCase().replace(/[^A-ZÁÉÍÓÚÜÑ.]/g,"");
+      answers[i]=clean;
+      e.target.value=clean;
+      updateStatus();
+    });
+  });
+  const bc=document.getElementById("btn-continue");
+  if(bc)bc.addEventListener("click",handleContinue);
+  const br=document.getElementById("btn-restart");
+  if(br)br.addEventListener("click",()=>{phase="intro";curLevel=0;answers=[];history=[];render();});
+}
+
+render();
+</script>
+</body>
+</html>
