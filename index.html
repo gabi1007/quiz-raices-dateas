@@ -4,79 +4,351 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>¿Cuánto sabés de tus raíces familiares? — dateas.com</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css">
 <style>
-:root {
-  --color-text-primary: #1c1008;
-  --color-text-secondary: #78716c;
-  --color-text-success: #15803d;
-  --color-text-danger: #dc2626;
-  --color-text-warning: #d97706;
-  --color-background-primary: #ffffff;
-  --color-background-secondary: #f5f0ea;
-  --color-background-tertiary: #faf7f2;
-  --color-border-tertiary: rgba(28,16,8,0.12);
-  --color-border-secondary: rgba(28,16,8,0.25);
-  --border-radius-md: 8px;
-  --border-radius-lg: 12px;
-}
+/* ── DATEAS PALETTE ─────────────────────────────────────────────
+   Primary blue  : #1a6ba0  (links, buttons, accents)
+   Dark navy     : #1c3a5a  (header bg, headings)
+   Mid blue      : #2e86c1  (hover states)
+   Light bg      : #eeeeee  (page bg, like dateas.com)
+   White panels  : #ffffff
+   Border grey   : #cccccc
+   Text dark     : #333333
+   Text mid      : #666666
+   Success green : #27ae60
+   Danger red    : #c0392b
+   Warning amber : #e67e22
+──────────────────────────────────────────────────────────────── */
 *{box-sizing:border-box;margin:0;padding:0;}
 body{
-  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
-  background:var(--color-background-tertiary);
-  color:var(--color-text-primary);
-  min-height:100vh;
-  display:flex;
-  align-items:flex-start;
-  justify-content:center;
-  padding:40px 20px;
-}
-#app{width:100%;max-width:680px;}
-button{
-  font-family:inherit;
+  font-family:Arial,Helvetica,sans-serif;
   font-size:14px;
-  font-weight:400;
-  color:var(--color-text-primary);
-  background:var(--color-background-primary);
-  border:0.5px solid var(--color-border-secondary);
-  border-radius:var(--border-radius-md);
-  padding:9px 18px;
-  cursor:pointer;
-  display:inline-flex;
+  background:#eeeeee;
+  color:#333333;
+  min-height:100vh;
+}
+
+/* ── HEADER (imita el header de dateas.com) ── */
+#site-header{
+  background:#1c3a5a;
+  padding:0;
+  border-bottom:3px solid #1a6ba0;
+}
+#site-header .header-inner{
+  max-width:960px;
+  margin:0 auto;
+  padding:10px 20px;
+  display:flex;
   align-items:center;
-  gap:6px;
+  gap:16px;
+}
+#site-header .logo{
+  font-size:22px;
+  font-weight:bold;
+  color:#ffffff;
+  text-decoration:none;
+  letter-spacing:-0.5px;
+}
+#site-header .logo span{color:#4db8ff;}
+#site-header .tagline{
+  font-size:11px;
+  color:#a0c4e0;
+  border-left:1px solid #2e5a7a;
+  padding-left:14px;
+  line-height:1.4;
+}
+
+/* ── BREADCRUMB ── */
+#breadcrumb{
+  background:#d8d8d8;
+  border-bottom:1px solid #c0c0c0;
+  font-size:12px;
+  padding:6px 0;
+}
+#breadcrumb .bc-inner{
+  max-width:960px;
+  margin:0 auto;
+  padding:0 20px;
+  color:#666;
+}
+#breadcrumb a{color:#1a6ba0;text-decoration:none;}
+#breadcrumb a:hover{text-decoration:underline;}
+#breadcrumb span{margin:0 5px;color:#999;}
+
+/* ── LAYOUT ── */
+#main{
+  max-width:960px;
+  margin:0 auto;
+  padding:20px;
+  display:flex;
+  gap:20px;
+  align-items:flex-start;
+}
+#content{flex:1;min-width:0;}
+#sidebar{
+  width:220px;
+  flex-shrink:0;
+}
+
+/* ── PANELS ── */
+.panel{
+  background:#ffffff;
+  border:1px solid #cccccc;
+  border-top:3px solid #1a6ba0;
+  margin-bottom:16px;
+}
+.panel-title{
+  background:#f5f5f5;
+  border-bottom:1px solid #cccccc;
+  padding:10px 14px;
+  font-size:14px;
+  font-weight:bold;
+  color:#1c3a5a;
+}
+.panel-body{padding:16px 14px;}
+
+/* ── PAGE TITLE ── */
+.page-title{
+  font-size:20px;
+  font-weight:bold;
+  color:#1c3a5a;
+  margin-bottom:6px;
+  line-height:1.3;
+}
+.page-subtitle{
+  font-size:13px;
+  color:#666;
+  margin-bottom:18px;
+  padding-bottom:14px;
+  border-bottom:1px solid #e0e0e0;
+}
+
+/* ── BUTTONS ── */
+.btn{
+  display:inline-block;
+  font-family:Arial,Helvetica,sans-serif;
+  font-size:13px;
+  font-weight:bold;
+  padding:8px 20px;
+  border-radius:3px;
+  border:1px solid;
+  cursor:pointer;
+  text-decoration:none;
   transition:background 0.15s;
 }
-button:hover{background:var(--color-background-secondary);}
-button:active{transform:scale(0.98);}
-input[type=text]{
+.btn-primary{
+  background:#1a6ba0;
+  color:#ffffff;
+  border-color:#155a88;
+}
+.btn-primary:hover{background:#2e86c1;border-color:#1a6ba0;}
+.btn-secondary{
+  background:#f5f5f5;
+  color:#333333;
+  border-color:#cccccc;
+}
+.btn-secondary:hover{background:#e8e8e8;}
+.btn-link{
+  background:none;
+  border:none;
+  color:#1a6ba0;
+  font-size:13px;
+  cursor:pointer;
   font-family:inherit;
-  font-size:14px;
-  color:var(--color-text-primary);
-  background:var(--color-background-primary);
-  border:0.5px solid var(--color-border-tertiary);
-  border-radius:var(--border-radius-md);
-  padding:8px 6px;
+  text-decoration:underline;
+  padding:0;
+}
+.btn-link:hover{color:#2e86c1;}
+
+/* ── INPUTS ── */
+input[type=text]{
+  font-family:Arial,Helvetica,sans-serif;
+  font-size:13px;
+  color:#333;
+  background:#fff;
+  border:1px solid #aaaaaa;
+  border-radius:2px;
+  padding:5px 4px;
   width:100%;
-  outline:none;
   text-align:center;
   text-transform:uppercase;
   letter-spacing:1px;
   transition:border-color 0.15s;
 }
-input[type=text]:focus{border-color:var(--color-border-secondary);}
-input[type=text]::placeholder{color:var(--color-border-secondary);text-transform:none;letter-spacing:0;}
-a{color:inherit;}
-.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);}
-.star-fill{color:var(--color-text-warning);}
-.star-empty{color:var(--color-border-tertiary);}
-.bar-pass{background:var(--color-text-success);}
-.bar-fail{background:var(--color-text-danger);}
+input[type=text]:focus{outline:none;border-color:#1a6ba0;box-shadow:0 0 0 2px rgba(26,107,160,0.15);}
+input[type=text]::placeholder{color:#bbbbbb;text-transform:none;letter-spacing:0;font-size:12px;}
+
+/* ── PROGRESS DOTS ── */
+.progress-bar{display:flex;align-items:center;gap:4px;margin-bottom:14px;}
+.dot-done{width:18px;height:5px;border-radius:2px;background:#27ae60;}
+.dot-current{width:24px;height:7px;border-radius:2px;background:#1a6ba0;}
+
+/* ── STATUS ROW ── */
+.status-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  font-size:12px;
+  color:#666;
+  padding:10px 0 0;
+  border-top:1px solid #e8e8e8;
+  margin-top:12px;
+  flex-wrap:wrap;
+  gap:8px;
+}
+.status-ok{color:#27ae60;font-weight:bold;}
+.status-warn{color:#666;}
+
+/* ── RESULT STATS ── */
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin-bottom:14px;
+}
+.stat-box{
+  background:#f5f5f5;
+  border:1px solid #ddd;
+  border-radius:2px;
+  padding:10px 8px;
+  text-align:center;
+}
+.stat-label{font-size:11px;color:#888;margin-bottom:4px;}
+.stat-value{font-size:20px;font-weight:bold;color:#1c3a5a;}
+
+/* ── BARS ── */
+.bar-row{display:flex;align-items:center;gap:8px;margin-bottom:7px;font-size:12px;}
+.bar-label{width:100px;flex-shrink:0;color:#555;}
+.bar-track{flex:1;height:8px;background:#e0e0e0;border-radius:2px;overflow:hidden;}
+.bar-fill-pass{height:100%;background:#27ae60;border-radius:2px;}
+.bar-fill-fail{height:100%;background:#c0392b;border-radius:2px;}
+.bar-count{width:38px;text-align:right;color:#666;}
+.bar-icon-pass{color:#27ae60;font-weight:bold;}
+.bar-icon-fail{color:#c0392b;font-weight:bold;}
+
+/* ── STARS ── */
+.stars{display:flex;gap:2px;justify-content:center;margin:6px 0 12px;}
+.star-on{color:#e67e22;font-size:20px;}
+.star-off{color:#cccccc;font-size:20px;}
+
+/* ── HOW-IT-WORKS LIST ── */
+.how-list{list-style:none;padding:0;margin:0;}
+.how-list li{
+  padding:6px 0 6px 16px;
+  border-bottom:1px solid #f0f0f0;
+  font-size:13px;
+  color:#444;
+  line-height:1.5;
+  position:relative;
+}
+.how-list li:last-child{border-bottom:none;}
+.how-list li::before{content:"▸";position:absolute;left:0;color:#1a6ba0;}
+
+/* ── SIDEBAR LINKS ── */
+.sidebar-links{list-style:none;padding:0;margin:0;}
+.sidebar-links li{border-bottom:1px solid #eeeeee;}
+.sidebar-links li:last-child{border-bottom:none;}
+.sidebar-links a{
+  display:block;
+  padding:7px 10px;
+  font-size:12px;
+  color:#1a6ba0;
+  text-decoration:none;
+}
+.sidebar-links a:hover{background:#f0f7fc;text-decoration:underline;}
+
+/* ── DATEAS CTA ── */
+.dateas-cta{
+  background:#1c3a5a;
+  color:#ffffff;
+  border-radius:2px;
+  padding:14px;
+  text-align:center;
+  margin-top:10px;
+}
+.dateas-cta p{font-size:12px;color:#a0c4e0;margin-bottom:10px;line-height:1.5;}
+.dateas-cta a{
+  display:inline-block;
+  background:#1a6ba0;
+  color:#fff;
+  font-weight:bold;
+  font-size:13px;
+  padding:8px 18px;
+  border-radius:2px;
+  text-decoration:none;
+  border:1px solid #4db8ff;
+}
+.dateas-cta a:hover{background:#2e86c1;}
+
+/* ── FOOTER ── */
+#site-footer{
+  background:#1c3a5a;
+  color:#a0c4e0;
+  font-size:11px;
+  text-align:center;
+  padding:14px 20px;
+  margin-top:30px;
+  border-top:2px solid #1a6ba0;
+}
+#site-footer a{color:#4db8ff;text-decoration:none;}
 </style>
 </head>
 <body>
-<h1 class="sr-only">Desafío genealógico de dateas.com: ¿Cuánto sabés de tus raíces familiares?</h1>
-<div id="app"></div>
+
+<!-- HEADER -->
+<header id="site-header">
+  <div class="header-inner">
+    <a href="https://www.dateas.com/es" class="logo">dateas<span>.com</span></a>
+    <div class="tagline">Registros públicos · Genealogía · Datos abiertos</div>
+  </div>
+</header>
+
+<!-- BREADCRUMB -->
+<nav id="breadcrumb">
+  <div class="bc-inner">
+    <a href="https://www.dateas.com/es">Inicio</a>
+    <span>›</span>
+    <a href="https://www.dateas.com/es/servicio/genealogia/argentina">Genealogía Argentina</a>
+    <span>›</span>
+    ¿Cuánto sabés de tus raíces?
+  </div>
+</nav>
+
+<!-- MAIN -->
+<div id="main">
+  <div id="content">
+    <div id="app"></div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <aside id="sidebar">
+    <div class="panel">
+      <div class="panel-title">🌳 Genealogía en dateas.com</div>
+      <div class="panel-body" style="padding:0;">
+        <ul class="sidebar-links">
+          <li><a href="https://www.dateas.com/es/servicio/genealogia/argentina">Genealogía Familiar</a></li>
+          <li><a href="https://www.dateas.com/es/servicio/genealogia/censos-inmigrantes/argentina">Inmigrantes y Censos</a></li>
+          <li><a href="https://www.dateas.com/es/buscar_obituarios">Buscador de Obituarios</a></li>
+          <li><a href="https://www.dateas.com/es/servicio/actas-partidas/argentina">Partidas de Nacimiento</a></li>
+          <li><a href="https://www.dateas.com/es/servicio/actas-partidas/matrimonio/argentina">Partidas de Matrimonio</a></li>
+          <li><a href="https://www.dateas.com/es/servicio/actas-partidas/defuncion/argentina">Partidas de Defunción</a></li>
+          <li><a href="https://www.dateas.com/es/servicio/expedientes-judiciales/sucesiones/argentina">Búsqueda de Sucesiones</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">ℹ️ ¿Sabías que...?</div>
+      <div class="panel-body">
+        <p style="font-size:12px;color:#555;line-height:1.6;">dateas.com tiene acceso a millones de registros históricos de Argentina, incluyendo padrones electorales, censos y registros de inmigración desde el siglo XIX.</p>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<!-- FOOTER -->
+<footer id="site-footer">
+  <p>© 2025 <a href="https://www.dateas.com/es">dateas.com</a> · Todos los derechos reservados · <a href="https://www.dateas.com/es/servicio/genealogia/argentina">Genealogía Argentina</a></p>
+</footer>
+
 <script>
 const LEVEL_NAMES=["Padres","Abuelos","Bisabuelos","Tatarabuelos","Choznos"];
 function lname(l){return l<LEVEL_NAMES.length?LEVEL_NAMES[l]:"Generación "+(l+1);}
@@ -111,31 +383,28 @@ function render(){
 }
 
 function renderIntro(){
-  return`<div style="max-width:580px;margin:0 auto;">
-  <div style="text-align:center;margin-bottom:1.75rem;">
-    <div style="font-size:11px;color:var(--color-text-secondary);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">dateas.com presenta</div>
-    <div style="font-size:40px;margin-bottom:10px;">🌳</div>
-    <h2 style="font-size:22px;font-weight:500;margin:0 0 8px;line-height:1.35;">¿Cuánto sabés de tus raíces familiares?</h2>
-    <p style="color:var(--color-text-secondary);margin:0;font-size:15px;">El desafío genealógico</p>
-  </div>
-  <div style="background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.5rem;margin-bottom:1.5rem;">
-    <p style="margin:0 0 1rem;line-height:1.75;color:var(--color-text-primary);font-size:15px;">
-      ¿Podés nombrar a tus abuelos? ¿Y a tus bisabuelos? Este desafío te lleva nivel por nivel por tu árbol genealógico, para ver hasta dónde llegás.
-    </p>
-    <div style="border-top:0.5px solid var(--color-border-tertiary);padding-top:1rem;">
-      <p style="font-size:12px;font-weight:500;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:0.5px;margin:0 0 10px;">Cómo funciona</p>
-      <div style="font-size:14px;color:var(--color-text-primary);display:flex;flex-direction:column;gap:9px;line-height:1.65;">
-        <div style="display:flex;gap:10px;"><span style="color:var(--color-text-secondary);flex-shrink:0;">→</span><span>Ingresá las <strong style="font-weight:500;">iniciales</strong> de nombre y apellido de cada antepasado (ej: <code style="font-size:12px;background:var(--color-background-secondary);padding:1px 5px;border-radius:3px;">JG</code> para Juan García)</span></div>
-        <div style="display:flex;gap:10px;"><span style="color:var(--color-text-secondary);flex-shrink:0;">→</span><span>Avanzarás nivel a nivel: padres → abuelos → bisabuelos → tatarabuelos → ...</span></div>
-        <div style="display:flex;gap:10px;"><span style="color:var(--color-text-secondary);flex-shrink:0;">→</span><span>El desafío se detiene cuando dejás en blanco <strong style="font-weight:500;">más de la mitad</strong> de los casilleros de un nivel</span></div>
-        <div style="display:flex;gap:10px;"><span style="color:var(--color-text-secondary);flex-shrink:0;">→</span><span>Al final evaluamos cuánto conocés de tus raíces</span></div>
+  return`<div class="panel">
+    <div class="panel-title">🌳 ¿Cuánto sabés de tus raíces familiares? — El desafío genealógico</div>
+    <div class="panel-body">
+      <div class="page-title">¿Cuánto sabés de tus raíces familiares?</div>
+      <div class="page-subtitle">Ponete a prueba: nivel por nivel en tu árbol genealógico</div>
+      <p style="font-size:13px;color:#444;line-height:1.7;margin-bottom:16px;">
+        ¿Podés nombrar a tus abuelos? ¿Y a tus bisabuelos? Este desafío te lleva nivel por nivel por tu árbol genealógico, para ver hasta dónde llegás.
+      </p>
+      <div style="background:#f5f8fc;border:1px solid #d0e4f0;border-left:4px solid #1a6ba0;padding:12px 14px;margin-bottom:18px;">
+        <div style="font-size:12px;font-weight:bold;color:#1c3a5a;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;">Cómo funciona</div>
+        <ul class="how-list">
+          <li>Ingresá las <strong>iniciales</strong> de nombre y apellido de cada antepasado (ej: <code style="background:#e8e8e8;padding:1px 4px;border-radius:2px;font-size:11px;">JG</code> para Juan García)</li>
+          <li>Avanzarás nivel a nivel: padres → abuelos → bisabuelos → tatarabuelos → ...</li>
+          <li>El desafío se detiene cuando dejás en blanco <strong>más de la mitad</strong> de los casilleros de un nivel</li>
+          <li>Al final te decimos cuánto conocés de tus raíces</li>
+        </ul>
+      </div>
+      <div style="text-align:center;">
+        <button id="btn-start" class="btn btn-primary" style="font-size:14px;padding:10px 28px;">▶ Comenzar el desafío</button>
       </div>
     </div>
-  </div>
-  <div style="text-align:center;">
-    <button id="btn-start" style="font-size:15px;padding:10px 32px;">Comenzar el desafío &nbsp;<i class="ti ti-arrow-right" aria-hidden="true"></i></button>
-  </div>
-</div>`;
+  </div>`;
 }
 
 function renderQuiz(){
@@ -145,47 +414,39 @@ function renderQuiz(){
   const needed=count/2;
   const showLabels=count<=8;
   const cols=count<=2?2:count<=8?4:count<=16?4:8;
-  const gap=count>16?"5px":"12px";
-  const inpSize=count>16?"11px":"14px";
-  const inpPad=count>16?"5px 2px":"8px 6px";
+  const gap=count>16?"5px":"10px";
+  const inpSize=count>16?"11px":"13px";
+  const inpPad=count>16?"4px 2px":"6px 4px";
 
-  const dots=history.map(()=>`<div style="width:20px;height:5px;border-radius:3px;background:var(--color-text-success);"></div>`).join("")+
-    `<div style="width:28px;height:7px;border-radius:3px;background:var(--color-border-secondary);"></div>`;
+  const dots=history.map(()=>`<div class="dot-done"></div>`).join("")+
+    `<div class="dot-current"></div>`;
 
   const inputs=answers.map((v,i)=>`
     <div style="text-align:center;">
-      ${showLabels?`<div style="font-size:11px;color:var(--color-text-secondary);margin-bottom:4px;min-height:26px;display:flex;align-items:center;justify-content:center;line-height:1.3;">${slabel(curLevel,i)}</div>`:""}
+      ${showLabels?`<div style="font-size:10px;color:#888;margin-bottom:3px;min-height:24px;display:flex;align-items:center;justify-content:center;line-height:1.3;">${slabel(curLevel,i)}</div>`:""}
       <input type="text" id="i${i}" data-idx="${i}" maxlength="6" value="${v}" placeholder="—" autocomplete="off"
         style="font-size:${inpSize};padding:${inpPad};"/>
-      ${!showLabels?`<div style="font-size:9px;color:var(--color-text-secondary);margin-top:2px;">${i+1}</div>`:""}
+      ${!showLabels?`<div style="font-size:9px;color:#aaa;margin-top:2px;">${i+1}</div>`:""}
     </div>`).join("");
 
-  return`<div style="max-width:640px;margin:0 auto;">
-  <div style="text-align:center;margin-bottom:1.5rem;">
-    <div style="font-size:11px;color:var(--color-text-secondary);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">dateas.com · nivel ${curLevel+1}</div>
-    <h2 style="font-size:22px;font-weight:500;margin:0 0 6px;">${lname(curLevel)}</h2>
-    <p style="color:var(--color-text-secondary);font-size:13px;margin:0 0 14px;">
-      ${count} antepasado${count!==1?"s":""} &nbsp;·&nbsp; Necesitás completar al menos ${needed} para avanzar
-    </p>
-    <div style="display:flex;justify-content:center;align-items:center;gap:5px;">${dots}</div>
-  </div>
-  <div style="background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.5rem;margin-bottom:1rem;">
-    <p style="font-size:13px;color:var(--color-text-secondary);text-align:center;margin:0 0 1.25rem;">
-      Iniciales de nombre y apellido (ej: <code style="background:var(--color-background-secondary);padding:1px 5px;border-radius:3px;font-size:12px;">JG</code>). Dejá en blanco lo que no sepas.
-    </p>
-    <div style="display:grid;grid-template-columns:repeat(${cols},minmax(0,1fr));gap:${gap};margin-bottom:1.25rem;">${inputs}</div>
-    <div style="display:flex;justify-content:center;align-items:center;gap:16px;font-size:13px;padding-top:1rem;border-top:0.5px solid var(--color-border-tertiary);">
-      <span style="color:var(--color-text-secondary);"><strong id="filled-display" style="color:var(--color-text-primary);font-weight:500;">${filled}</strong> de ${count} completados</span>
-      <span style="color:var(--color-border-secondary);">|</span>
-      <span id="status-text" style="color:${ok?"var(--color-text-success)":"var(--color-text-secondary)"};">
-        ${ok?'<i class="ti ti-check" aria-hidden="true"></i> Podés avanzar':`Necesitás ${needed-filled} más`}
-      </span>
+  return`<div class="panel">
+    <div class="panel-title">Nivel ${curLevel+1} — ${lname(curLevel)}</div>
+    <div class="panel-body">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px;">
+        <div class="progress-bar">${dots}</div>
+        <div style="font-size:12px;color:#888;">${count} antepasado${count!==1?"s":""} · Mínimo ${needed} para avanzar</div>
+      </div>
+      <div style="background:#f5f8fc;border:1px solid #d0e4f0;padding:8px 12px;border-radius:2px;font-size:12px;color:#555;text-align:center;margin-bottom:14px;">
+        Iniciales de nombre y apellido · Dejá en blanco lo que no sepas
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(${cols},minmax(0,1fr));gap:${gap};margin-bottom:4px;">${inputs}</div>
+      <div class="status-row">
+        <span><strong id="filled-display">${filled}</strong> de ${count} completados</span>
+        <span id="status-text" class="${ok?"status-ok":"status-warn"}">${ok?"✔ Podés avanzar":`Necesitás ${Math.max(0,needed-filled)} más`}</span>
+        <button id="btn-continue" class="btn btn-primary" style="font-size:13px;padding:7px 18px;">${ok?"Continuar ▶":"Finalizar desafío"}</button>
+      </div>
     </div>
-  </div>
-  <div style="text-align:center;">
-    <button id="btn-continue" style="font-size:15px;padding:10px 32px;">${ok?"Continuar":"Finalizar desafío"} &nbsp;<i class="ti ti-arrow-right" aria-hidden="true"></i></button>
-  </div>
-</div>`;
+  </div>`;
 }
 
 function renderResult(){
@@ -195,61 +456,54 @@ function renderResult(){
   const pct=ts>0?Math.round(tf/ts*100):0;
   const sc=gscore(lp);
   const starsHtml=Array.from({length:5},(_,i)=>
-    `<span class="${i<sc.stars?"star-fill":"star-empty"}" style="font-size:22px;">${i<sc.stars?"★":"☆"}</span>`
+    `<span class="${i<sc.stars?"star-on":"star-off"}">${i<sc.stars?"★":"☆"}</span>`
   ).join("");
   const bars=history.map(h=>{
     const p=Math.round(h.filled/h.total*100);
     const ok=(h.total-h.filled)<=h.total/2;
-    return`<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
-      <div style="font-size:12px;color:var(--color-text-secondary);width:105px;flex-shrink:0;">${lname(h.level)}</div>
-      <div style="flex:1;height:8px;background:var(--color-background-secondary);border-radius:4px;overflow:hidden;">
-        <div class="${ok?"bar-pass":"bar-fail"}" style="height:100%;width:${p}%;border-radius:4px;"></div>
-      </div>
-      <div style="font-size:12px;color:var(--color-text-secondary);width:42px;text-align:right;">${h.filled}/${h.total}</div>
-      <i class="ti ti-${ok?"check":"x"}" style="font-size:14px;color:var(--color-text-${ok?"success":"danger"});" aria-hidden="true"></i>
+    return`<div class="bar-row">
+      <div class="bar-label">${lname(h.level)}</div>
+      <div class="bar-track"><div class="${ok?"bar-fill-pass":"bar-fill-fail"}" style="width:${p}%"></div></div>
+      <div class="bar-count">${h.filled}/${h.total}</div>
+      <span class="${ok?"bar-icon-pass":"bar-icon-fail"}">${ok?"✔":"✘"}</span>
     </div>`;
   }).join("");
   const lastGen=lp>0?lname(lp-1):"—";
-  const lastGenSize=lastGen.length>10?"14px":"20px";
 
-  return`<div style="max-width:580px;margin:0 auto;">
-  <div style="text-align:center;margin-bottom:1.75rem;">
-    <div style="font-size:11px;color:var(--color-text-secondary);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">dateas.com · tu resultado</div>
-    <div style="font-size:44px;margin-bottom:10px;">${sc.emoji}</div>
-    <h2 style="font-size:22px;font-weight:500;margin:0 0 10px;">${sc.title}</h2>
-    <div style="display:flex;justify-content:center;gap:3px;">${starsHtml}</div>
-  </div>
-  <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:1.5rem;">
-    <div style="background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:1rem;text-align:center;">
-      <div style="font-size:11px;color:var(--color-text-secondary);margin-bottom:6px;">Niveles completados</div>
-      <div style="font-size:22px;font-weight:500;">${lp}</div>
+  return`<div class="panel">
+    <div class="panel-title">${sc.emoji} Tu resultado — ${sc.title}</div>
+    <div class="panel-body">
+      <div class="stars">${starsHtml}</div>
+      <div class="stats-grid">
+        <div class="stat-box">
+          <div class="stat-label">Niveles completados</div>
+          <div class="stat-value">${lp}</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Última generación</div>
+          <div class="stat-value" style="font-size:${lastGen.length>8?"14px":"20px"};">${lastGen}</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Antepasados conocidos</div>
+          <div class="stat-value">${pct}%</div>
+        </div>
+      </div>
+      ${bars?`<div style="margin-bottom:14px;">
+        <div style="font-size:11px;font-weight:bold;color:#888;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">Detalle por generación</div>
+        ${bars}
+      </div>`:""}
+      <div style="background:#f5f8fc;border:1px solid #d0e4f0;border-left:4px solid #1a6ba0;padding:12px 14px;margin-bottom:16px;font-size:13px;color:#444;line-height:1.65;">
+        ${sc.msg}
+      </div>
+      <div class="dateas-cta">
+        <p>Descubrí más sobre tus antepasados con los millones de registros históricos de dateas.com</p>
+        <a href="https://www.dateas.com/es/servicio/genealogia/argentina" target="_blank" rel="noopener">🔍 Buscar mis raíces en dateas.com</a>
+      </div>
+      <div style="text-align:center;margin-top:12px;">
+        <button id="btn-restart" class="btn btn-secondary">↺ Intentar de nuevo</button>
+      </div>
     </div>
-    <div style="background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:1rem;text-align:center;">
-      <div style="font-size:11px;color:var(--color-text-secondary);margin-bottom:6px;">Última generación</div>
-      <div style="font-size:${lastGenSize};font-weight:500;">${lastGen}</div>
-    </div>
-    <div style="background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:1rem;text-align:center;">
-      <div style="font-size:11px;color:var(--color-text-secondary);margin-bottom:6px;">Antepasados registrados</div>
-      <div style="font-size:22px;font-weight:500;">${pct}%</div>
-    </div>
-  </div>
-  <div style="background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.25rem;margin-bottom:1.25rem;">
-    <p style="font-size:12px;font-weight:500;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:0.5px;margin:0 0 1rem;">Detalle por generación</p>
-    ${bars||'<p style="font-size:13px;color:var(--color-text-secondary);margin:0;">No se completó ningún nivel.</p>'}
-  </div>
-  <div style="background:var(--color-background-secondary);border-radius:var(--border-radius-lg);padding:1.25rem;margin-bottom:1.5rem;">
-    <p style="margin:0;line-height:1.75;color:var(--color-text-primary);font-size:15px;">${sc.msg}</p>
-  </div>
-  <div style="display:flex;gap:12px;flex-wrap:wrap;">
-    <a href="https://www.dateas.com/es/servicio/genealogia/argentina" target="_blank" rel="noopener"
-      style="flex:1;text-align:center;padding:10px 20px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);text-decoration:none;font-size:14px;background:var(--color-background-secondary);display:inline-flex;align-items:center;justify-content:center;gap:6px;">
-      <i class="ti ti-search" aria-hidden="true"></i> Buscar en dateas.com ↗
-    </a>
-    <button id="btn-restart" style="flex-shrink:0;font-size:14px;padding:10px 20px;">
-      <i class="ti ti-refresh" aria-hidden="true"></i> Intentar de nuevo
-    </button>
-  </div>
-</div>`;
+  </div>`;
 }
 
 function updateStatus(){
@@ -261,11 +515,8 @@ function updateStatus(){
   const st=document.getElementById("status-text");
   const bc=document.getElementById("btn-continue");
   if(fd)fd.textContent=filled;
-  if(st){
-    st.style.color=ok?"var(--color-text-success)":"var(--color-text-secondary)";
-    st.innerHTML=ok?'<i class="ti ti-check" aria-hidden="true"></i> Podés avanzar':`Necesitás ${Math.max(0,needed-filled)} más`;
-  }
-  if(bc)bc.innerHTML=(ok?"Continuar":"Finalizar desafío")+' &nbsp;<i class="ti ti-arrow-right" aria-hidden="true"></i>';
+  if(st){st.className=ok?"status-ok":"status-warn";st.textContent=ok?"✔ Podés avanzar":`Necesitás ${Math.max(0,needed-filled)} más`;}
+  if(bc){bc.textContent=ok?"Continuar ▶":"Finalizar desafío";}
 }
 
 function handleContinue(){
@@ -284,9 +535,7 @@ function bind(){
     inp.addEventListener("input",e=>{
       const i=parseInt(e.target.dataset.idx);
       const clean=e.target.value.toUpperCase().replace(/[^A-ZÁÉÍÓÚÜÑ.]/g,"");
-      answers[i]=clean;
-      e.target.value=clean;
-      updateStatus();
+      answers[i]=clean;e.target.value=clean;updateStatus();
     });
   });
   const bc=document.getElementById("btn-continue");
