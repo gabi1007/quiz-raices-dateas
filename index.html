@@ -97,15 +97,14 @@ const SCORE=[
 ];
 function gscore(lp){return SCORE[Math.min(lp,SCORE.length-1)];}
 
-let phase="intro",curLevel=0,answers=[],history=[];
+let phase="quiz",curLevel=0,answers=["",""],history=[];
 function getCount(){return scount(curLevel);}
 function getFilled(){return answers.filter(a=>a.trim().length>0).length;}
 function canAdvance(){const c=getCount();return(c-getFilled())<=c/2;}
 
 function render(){
   const app=document.getElementById("app");
-  if(phase==="intro")app.innerHTML=renderIntro();
-  else if(phase==="quiz")app.innerHTML=renderQuiz();
+  if(phase==="quiz")app.innerHTML=renderQuiz();
   else app.innerHTML=renderResult();
   bind();
 }
@@ -302,8 +301,7 @@ function handleContinue(){
 }
 
 function bind(){
-  const bs=document.getElementById("btn-start");
-  if(bs)bs.addEventListener("click",()=>{phase="quiz";curLevel=0;answers=new Array(scount(0)).fill("");history=[];render();});
+
   document.querySelectorAll("[data-idx]").forEach(inp=>{
     inp.addEventListener("input",e=>{
       const i=parseInt(e.target.dataset.idx);
@@ -316,7 +314,7 @@ function bind(){
   const bc=document.getElementById("btn-continue");
   if(bc)bc.addEventListener("click",handleContinue);
   const br=document.getElementById("btn-restart");
-  if(br)br.addEventListener("click",()=>{phase="intro";curLevel=0;answers=[];history=[];render();});
+  if(br)br.addEventListener("click",()=>{phase="quiz";curLevel=0;answers=["",""];history=[];render();});
 
   // Share buttons
   const URL="https://gabi1007.github.io/quiz-raices-dateas/";
