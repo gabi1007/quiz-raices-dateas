@@ -259,7 +259,7 @@ function renderResult(){
       </a>
       <button id="share-copy"
         style="display:flex;align-items:center;justify-content:center;gap:8px;padding:9px 12px;border-radius:var(--border-radius-md);font-size:13px;background:var(--color-background-secondary);color:var(--color-text-primary);border:0.5px solid var(--color-border-secondary);cursor:pointer;font-family:inherit;">
-        🔗 <span id="copy-label">Copiar link</span>
+        🔗 <span id="copy-label">Copiar mensaje</span>
       </button>
     </div>
   </div>
@@ -337,9 +337,9 @@ function bind(){
 
   const cp=document.getElementById("share-copy");
   if(cp)cp.addEventListener("click",()=>{
-    navigator.clipboard.writeText(URL).then(()=>{
+    navigator.clipboard.writeText(fullMsg).then(()=>{
       const lbl=document.getElementById("copy-label");
-      if(lbl){lbl.textContent="¡Link copiado!";setTimeout(()=>{lbl.textContent="Copiar link";},2000);}
+      if(lbl){lbl.textContent="¡Copiado!";setTimeout(()=>{lbl.textContent="Copiar mensaje";},2000);}
     });
   });
 }
