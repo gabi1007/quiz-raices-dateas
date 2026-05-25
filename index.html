@@ -241,13 +241,36 @@ function renderResult(){
   <div style="background:var(--color-background-secondary);border-radius:var(--border-radius-lg);padding:1.25rem;margin-bottom:1.5rem;">
     <p style="margin:0;line-height:1.75;color:var(--color-text-primary);font-size:15px;">${sc.msg}</p>
   </div>
+  <div style="background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.25rem;margin-bottom:1rem;">
+    <p style="font-size:12px;font-weight:500;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:0.5px;margin:0 0 12px;">Compartir desafío</p>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;">
+      <a id="share-whatsapp" href="#" target="_blank" rel="noopener"
+        style="display:flex;align-items:center;justify-content:center;gap:8px;padding:9px 12px;border-radius:var(--border-radius-md);text-decoration:none;font-size:13px;background:#25D366;color:#fff;font-weight:500;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.104.549 4.076 1.508 5.788L0 24l6.388-1.487A11.946 11.946 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.808 9.808 0 01-5.031-1.388l-.36-.214-3.736.979.997-3.648-.235-.374A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
+        WhatsApp
+      </a>
+      <a id="share-telegram" href="#" target="_blank" rel="noopener"
+        style="display:flex;align-items:center;justify-content:center;gap:8px;padding:9px 12px;border-radius:var(--border-radius-md);text-decoration:none;font-size:13px;background:#229ED9;color:#fff;font-weight:500;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248l-2.022 9.531c-.148.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L6.26 14.4l-2.95-.924c-.642-.2-.655-.642.136-.953l11.527-4.445c.537-.194 1.006.131.589 2.17z"/></svg>
+        Telegram
+      </a>
+      <a id="share-mail" href="#"
+        style="display:flex;align-items:center;justify-content:center;gap:8px;padding:9px 12px;border-radius:var(--border-radius-md);text-decoration:none;font-size:13px;background:var(--color-background-secondary);color:var(--color-text-primary);border:0.5px solid var(--color-border-secondary);">
+        ✉ E-mail
+      </a>
+      <button id="share-copy"
+        style="display:flex;align-items:center;justify-content:center;gap:8px;padding:9px 12px;border-radius:var(--border-radius-md);font-size:13px;background:var(--color-background-secondary);color:var(--color-text-primary);border:0.5px solid var(--color-border-secondary);cursor:pointer;font-family:inherit;">
+        🔗 <span id="copy-label">Copiar link</span>
+      </button>
+    </div>
+  </div>
   <div style="display:flex;gap:12px;flex-wrap:wrap;">
     <a href="https://www.dateas.com/es/servicio/genealogia/argentina" target="_blank" rel="noopener"
       style="flex:1;text-align:center;padding:10px 20px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);text-decoration:none;font-size:14px;background:var(--color-background-secondary);display:inline-flex;align-items:center;justify-content:center;gap:6px;">
-      <i class="ti ti-search" aria-hidden="true"></i> Buscar en dateas.com ↗
+      🔍 Buscar en dateas.com ↗
     </a>
     <button id="btn-restart" style="flex-shrink:0;font-size:14px;padding:10px 20px;">
-      <i class="ti ti-refresh" aria-hidden="true"></i> Intentar de nuevo
+      ↺ Intentar de nuevo
     </button>
   </div>
 </div>`;
