@@ -293,6 +293,33 @@ function bind(){
   if(bc)bc.addEventListener("click",handleContinue);
   const br=document.getElementById("btn-restart");
   if(br)br.addEventListener("click",()=>{phase="intro";curLevel=0;answers=[];history=[];render();});
+
+  // Share buttons
+  const URL="https://gabi1007.github.io/quiz-raices-dateas/";
+  const lp=history.filter(h=>(h.total-h.filled)<=h.total/2).length;
+  const lastGenShare=lp>0?lname(lp-1):"ninguna generación";
+  const sc=gscore(lp);
+  const personalMsg="Llegué hasta "+lastGenShare+" en el desafío genealógico: "+sc.title+" ("+sc.stars+"★). ¿Vos hasta dónde llegás?";
+  const baseMsg="Hacé este desafío genealógico y descubrí cuánto sabés de tus raíces familiares 🌳";
+  const fullMsg=personalMsg+" → "+URL;
+  const introMsg=baseMsg+" → "+URL;
+
+  const wa=document.getElementById("share-whatsapp");
+  if(wa)wa.href="https://wa.me/?text="+encodeURIComponent(fullMsg);
+
+  const tg=document.getElementById("share-telegram");
+  if(tg)tg.href="https://t.me/share/url?url="+encodeURIComponent(URL)+"&text="+encodeURIComponent(personalMsg);
+
+  const ml=document.getElementById("share-mail");
+  if(ml)ml.href="mailto:?subject="+encodeURIComponent("¿Cuánto sabés de tus raíces? — dateas.com")+"&body="+encodeURIComponent(fullMsg+"\n\n"+baseMsg);
+
+  const cp=document.getElementById("share-copy");
+  if(cp)cp.addEventListener("click",()=>{
+    navigator.clipboard.writeText(URL).then(()=>{
+      const lbl=document.getElementById("copy-label");
+      if(lbl){lbl.textContent="¡Link copiado!";setTimeout(()=>{lbl.textContent="Copiar link";},2000);}
+    });
+  });
 }
 
 render();
