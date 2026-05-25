@@ -219,18 +219,19 @@ function renderResult(){
     <h2 style="font-size:22px;font-weight:500;margin:0 0 10px;">${sc.title}</h2>
     <div style="display:flex;justify-content:center;gap:3px;">${starsHtml}</div>
   </div>
-  <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:1.5rem;">
+  <div style="background:var(--color-background-secondary);border-radius:var(--border-radius-lg);padding:1.5rem;margin-bottom:1.25rem;text-align:center;border:0.5px solid var(--color-border-tertiary);">
+    <div style="font-size:12px;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">Tu puntaje</div>
+    <div style="font-size:56px;font-weight:600;line-height:1;margin-bottom:6px;">${tf}</div>
+    <div style="font-size:15px;color:var(--color-text-secondary);">antepasado${tf!==1?"s":""} conocido${tf!==1?"s":""}</div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:1.5rem;">
     <div style="background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:1rem;text-align:center;">
-      <div style="font-size:11px;color:var(--color-text-secondary);margin-bottom:6px;">Niveles completados</div>
+      <div style="font-size:11px;color:var(--color-text-secondary);margin-bottom:6px;">Generaciones exploradas</div>
       <div style="font-size:22px;font-weight:500;">${lp}</div>
     </div>
     <div style="background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:1rem;text-align:center;">
       <div style="font-size:11px;color:var(--color-text-secondary);margin-bottom:6px;">Última generación</div>
       <div style="font-size:${lastGenSize};font-weight:500;">${lastGen}</div>
-    </div>
-    <div style="background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:1rem;text-align:center;">
-      <div style="font-size:11px;color:var(--color-text-secondary);margin-bottom:6px;">Antepasados registrados</div>
-      <div style="font-size:22px;font-weight:500;">${pct}%</div>
     </div>
   </div>
   <div style="background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.25rem;margin-bottom:1.25rem;">
@@ -299,7 +300,7 @@ function bind(){
   const lp=history.filter(h=>(h.total-h.filled)<=h.total/2).length;
   const lastGenShare=lp>0?lname(lp-1):"ninguna generación";
   const sc=gscore(lp);
-  const personalMsg="Llegué hasta "+lastGenShare+" en el desafío genealógico: "+sc.title+" ("+sc.stars+"★). ¿Vos hasta dónde llegás?";
+  const tf2=history.reduce((s,h)=>s+h.filled,0); const personalMsg="Conocí "+tf2+" antepasado"+(tf2!==1?"s":"")+" en el desafío genealógico de dateas.com (llegué hasta "+lastGenShare+"). ¿Vos hasta dónde llegás?";
   const baseMsg="Hacé este desafío genealógico y descubrí cuánto sabés de tus raíces familiares 🌳";
   const fullMsg=personalMsg+" → "+URL;
   const introMsg=baseMsg+" → "+URL;
