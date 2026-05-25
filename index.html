@@ -2,6 +2,9 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>¿Cuánto sabés de tus raíces familiares? — dateas.com</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css">
@@ -109,33 +112,6 @@ function render(){
   bind();
 }
 
-function renderIntro(){
-  return`<div style="max-width:580px;margin:0 auto;">
-  <div style="text-align:center;margin-bottom:1.75rem;">
-    <div style="font-size:11px;color:var(--color-text-secondary);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">dateas.com presenta</div>
-    <div style="font-size:40px;margin-bottom:10px;">🌳</div>
-    <h2 style="font-size:22px;font-weight:500;margin:0 0 8px;line-height:1.35;">¿Cuánto sabés de tus raíces familiares?</h2>
-    <p style="color:var(--color-text-secondary);margin:0;font-size:15px;">El desafío genealógico</p>
-  </div>
-  <div style="background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.5rem;margin-bottom:1.5rem;">
-    <p style="margin:0 0 1rem;line-height:1.75;color:var(--color-text-primary);font-size:15px;">
-      ¿Podés nombrar a tus abuelos? ¿Y a tus bisabuelos? Este desafío te lleva nivel por nivel por tu árbol genealógico, para ver hasta dónde llegás.
-    </p>
-    <div style="border-top:0.5px solid var(--color-border-tertiary);padding-top:1rem;">
-      <p style="font-size:12px;font-weight:500;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:0.5px;margin:0 0 10px;">Cómo funciona</p>
-      <div style="font-size:14px;color:var(--color-text-primary);display:flex;flex-direction:column;gap:9px;line-height:1.65;">
-        <div style="display:flex;gap:10px;"><span style="color:var(--color-text-secondary);flex-shrink:0;">→</span><span>Ingresá las <strong style="font-weight:500;">iniciales</strong> de nombre y apellido de cada antepasado (ej: <code style="font-size:12px;background:var(--color-background-secondary);padding:1px 5px;border-radius:3px;">JG</code> para Juan García)</span></div>
-        <div style="display:flex;gap:10px;"><span style="color:var(--color-text-secondary);flex-shrink:0;">→</span><span>Avanzarás nivel a nivel: padres → abuelos → bisabuelos → tatarabuelos → ...</span></div>
-        <div style="display:flex;gap:10px;"><span style="color:var(--color-text-secondary);flex-shrink:0;">→</span><span>El desafío se detiene cuando dejás en blanco <strong style="font-weight:500;">más de la mitad</strong> de los casilleros de un nivel</span></div>
-        <div style="display:flex;gap:10px;"><span style="color:var(--color-text-secondary);flex-shrink:0;">→</span><span>Al final evaluamos cuánto conocés de tus raíces</span></div>
-      </div>
-    </div>
-  </div>
-  <div style="text-align:center;">
-    <button id="btn-start" style="font-size:15px;padding:10px 32px;">Comenzar el desafío &nbsp;<i class="ti ti-arrow-right" aria-hidden="true"></i></button>
-  </div>
-</div>`;
-}
 
 function renderQuiz(){
   const count=getCount();
