@@ -136,6 +136,13 @@ function render(){
   else if(!indivMode) app.innerHTML=renderGroup();
   else app.innerHTML=renderIndiv();
   bind();
+  // Focus first empty input
+  setTimeout(()=>{
+    const inputs=app.querySelectorAll("input[type=text]");
+    for(const inp of inputs){
+      if(!inp.value.trim()){inp.focus();break;}
+    }
+  },50);
 }
 
 const DATEAS_BTN=`<div style="text-align:center;margin-top:1.25rem;"><a href="https://www.dateas.com/es/servicio/genealogia/argentina?source=encuesta" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--color-text-secondary);text-decoration:none;padding:6px 14px;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);background:var(--color-background-primary);">🔍 Buscar en dateas.com</a></div>`;
