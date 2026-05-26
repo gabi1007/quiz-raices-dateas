@@ -84,9 +84,18 @@ a{color:inherit;}
 const LEVEL_NAMES=["Padres","Abuelos","Bisabuelos","Tatarabuelos","Choznos"];
 function lname(l){return l<LEVEL_NAMES.length?LEVEL_NAMES[l]:"Generación "+(l+1);}
 function scount(l){return Math.pow(2,l+1);}
+const ICONS={"adultM":'<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="#f5deb3" stroke="#5a7a9a" stroke-width="1.5"/><path d="M6 10 Q16 4 26 10" fill="#5a7a9a" stroke="none"/><rect x="6" y="7" width="20" height="8" rx="2" fill="#5a7a9a"/><circle cx="11" cy="16" r="1.8" fill="#444"/><circle cx="21" cy="16" r="1.8" fill="#444"/><path d="M11 24 Q16 28 21 24" stroke="#c0785a" stroke-width="1.5" fill="none" stroke-linecap="round"/><ellipse cx="9" cy="16" rx="2.5" ry="1.5" fill="#f0c090" opacity="0.5"/><ellipse cx="23" cy="16" rx="2.5" ry="1.5" fill="#f0c090" opacity="0.5"/></svg>',"adultF":'<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="#f5deb3" stroke="#c47aa0" stroke-width="1.5"/><path d="M3 14 Q3 4 16 3 Q29 4 29 14 Q26 6 16 6 Q6 6 3 14 Z" fill="#c47aa0"/><path d="M3 14 Q2 20 3 26 Q4 16 3 14Z" fill="#c47aa0"/><path d="M29 14 Q30 20 29 26 Q28 16 29 14Z" fill="#c47aa0"/><circle cx="11" cy="17" r="1.8" fill="#444"/><circle cx="21" cy="17" r="1.8" fill="#444"/><line x1="9" y1="14" x2="8" y2="12.5" stroke="#444" stroke-width="1" stroke-linecap="round"/><line x1="11" y1="13.5" x2="11" y2="12" stroke="#444" stroke-width="1" stroke-linecap="round"/><line x1="13" y1="14" x2="13.5" y2="12.5" stroke="#444" stroke-width="1" stroke-linecap="round"/><line x1="19" y1="14" x2="18.5" y2="12.5" stroke="#444" stroke-width="1" stroke-linecap="round"/><line x1="21" y1="13.5" x2="21" y2="12" stroke="#444" stroke-width="1" stroke-linecap="round"/><line x1="23" y1="14" x2="23.5" y2="12.5" stroke="#444" stroke-width="1" stroke-linecap="round"/><path d="M11 25 Q16 29 21 25" stroke="#c0785a" stroke-width="1.5" fill="none" stroke-linecap="round"/><ellipse cx="9" cy="17" rx="2.5" ry="1.5" fill="#f0c090" opacity="0.5"/><ellipse cx="23" cy="17" rx="2.5" ry="1.5" fill="#f0c090" opacity="0.5"/></svg>',"oldM":'<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="#f0d5a8" stroke="#7a9a6a" stroke-width="1.5"/><path d="M3 15 Q4 8 9 6 Q9 10 8 14 Z" fill="#cccccc"/><path d="M29 15 Q28 8 23 6 Q23 10 24 14 Z" fill="#cccccc"/><path d="M9 6 Q16 3 23 6" stroke="#cccccc" stroke-width="1" fill="none"/><circle cx="11" cy="17" r="1.8" fill="#444"/><circle cx="21" cy="17" r="1.8" fill="#444"/><path d="M8 13 Q9 12 10 13" stroke="#999" stroke-width="1" fill="none" stroke-linecap="round"/><path d="M22 13 Q23 12 24 13" stroke="#999" stroke-width="1" fill="none" stroke-linecap="round"/><path d="M9 21 Q10 20 11 20.5" stroke="#b09070" stroke-width="1" fill="none" stroke-linecap="round"/><path d="M21 20.5 Q22 20 23 21" stroke="#b09070" stroke-width="1" fill="none" stroke-linecap="round"/><path d="M12 23 Q16 27 20 23" stroke="#c0785a" stroke-width="1.5" fill="none" stroke-linecap="round"/><ellipse cx="9" cy="17" rx="2.5" ry="1.5" fill="#e8c090" opacity="0.5"/><ellipse cx="23" cy="17" rx="2.5" ry="1.5" fill="#e8c090" opacity="0.5"/></svg>',"oldF":'<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="#f0d5a8" stroke="#a07ac4" stroke-width="1.5"/><path d="M3 15 Q4 8 9 6 Q9 10 8 14 Z" fill="#dddddd"/><path d="M29 15 Q28 8 23 6 Q23 10 24 14 Z" fill="#dddddd"/><ellipse cx="16" cy="4" rx="5" ry="3.5" fill="#dddddd"/><circle cx="16" cy="2.5" r="2" fill="#cccccc"/><circle cx="11" cy="17" r="1.8" fill="#444"/><circle cx="21" cy="17" r="1.8" fill="#444"/><line x1="9" y1="14" x2="8" y2="12.5" stroke="#666" stroke-width="1" stroke-linecap="round"/><line x1="11" y1="13.5" x2="11" y2="12" stroke="#666" stroke-width="1" stroke-linecap="round"/><line x1="13" y1="14" x2="13.5" y2="12.5" stroke="#666" stroke-width="1" stroke-linecap="round"/><line x1="19" y1="14" x2="18.5" y2="12.5" stroke="#666" stroke-width="1" stroke-linecap="round"/><line x1="21" y1="13.5" x2="21" y2="12" stroke="#666" stroke-width="1" stroke-linecap="round"/><line x1="23" y1="14" x2="23.5" y2="12.5" stroke="#666" stroke-width="1" stroke-linecap="round"/><path d="M9 21 Q10 20 11 20.5" stroke="#b09070" stroke-width="1" fill="none" stroke-linecap="round"/><path d="M21 20.5 Q22 20 23 21" stroke="#b09070" stroke-width="1" fill="none" stroke-linecap="round"/><path d="M11 25 Q16 29 21 25" stroke="#c0785a" stroke-width="1.5" fill="none" stroke-linecap="round"/><ellipse cx="9" cy="17" rx="2.5" ry="1.5" fill="#e8c090" opacity="0.5"/><ellipse cx="23" cy="17" rx="2.5" ry="1.5" fill="#e8c090" opacity="0.5"/></svg>'};
 function slabel(level,idx){
-  if(level===0)return idx===0?"Padre":"Madre";
-  if(level===1)return["Abuelo pat.","Abuela pat.","Abuelo mat.","Abuela mat."][idx];
+  if(level===0){
+    const icon=idx===0?ICONS.adultM:ICONS.adultF;
+    const txt=idx===0?"Padre":"Madre";
+    return icon+"<br>"+txt;
+  }
+  if(level===1){
+    const icons=[ICONS.oldM,ICONS.oldF,ICONS.oldM,ICONS.oldF];
+    const txts=["Abuelo pat.","Abuela pat.","Abuelo mat.","Abuela mat."];
+    return icons[idx]+"<br>"+txts[idx];
+  }
   return lname(level).replace(/s$/,"")+" "+(idx+1);
 }
 
@@ -129,7 +138,7 @@ function renderQuiz(){
 
   const inputs=answers.map((v,i)=>`
     <div style="text-align:center;">
-      ${showLabels?`<div style="font-size:11px;color:var(--color-text-secondary);margin-bottom:4px;min-height:26px;display:flex;align-items:center;justify-content:center;line-height:1.3;">${slabel(curLevel,i)}</div>`:""}
+      ${showLabels?`<div style="font-size:11px;color:var(--color-text-secondary);margin-bottom:4px;min-height:52px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;line-height:1.3;">${slabel(curLevel,i)}</div>`:""}
       <input type="text" id="i${i}" data-idx="${i}" maxlength="6" value="${v}" placeholder="—" autocomplete="off"
         style="font-size:${inpSize};padding:${inpPad};"/>
       ${!showLabels?`<div style="font-size:9px;color:var(--color-text-secondary);margin-top:2px;">${i+1}</div>`:""}
@@ -287,7 +296,7 @@ function renderResult(){
     </div>
   </div>
   <div style="display:flex;gap:12px;flex-wrap:wrap;">
-    <a href="https://www.dateas.com/es/servicio/genealogia/argentina" target="_blank" rel="noopener"
+    <a href="https://www.dateas.com/es/servicio/genealogia/argentina?source=encuesta" target="_blank" rel="noopener"
       style="flex:1;text-align:center;padding:10px 20px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);text-decoration:none;font-size:15px;background:var(--color-background-secondary);display:inline-flex;align-items:center;justify-content:center;gap:6px;">
       🔍 Buscar en dateas.com ↗
     </a>
