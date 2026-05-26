@@ -129,16 +129,6 @@ function computeScore(){
   return {tf,lp,sc,lastGen};
 }
 
-function computeMemoriaViva(){
-  // Weight per ancestor: 2^(3-level). Level 0=Padres=8pts, 1=Abuelos=4pts, 2=Bisabuelos=2pts, 3=Tatarabuelos=1pt, 4+=0.5pt
-  function w(level){ return Math.max(0.5, Math.pow(2, 3-level)); }
-  let score=0;
-  grpAns[0].forEach(a=>{ if(a.trim()) score+=w(0); });
-  grpAns[1].forEach(a=>{ if(a.trim()) score+=w(1); });
-  allHistory.forEach((gen,i)=>{ gen.forEach(e=>{ if(e.initials.trim()) score+=w(i+2); }); });
-  return Math.round(score*10)/10;
-}
-
 // ── RENDER ─────────────────────────────────────────────────
 function render(){
   const app=document.getElementById("app");
@@ -306,13 +296,6 @@ function renderResult(){
     <div style="font-size:13px;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">Tu puntaje</div>
     <div style="font-size:56px;font-weight:600;line-height:1;margin-bottom:6px;">${tf}</div>
     <div style="font-size:15px;color:var(--color-text-secondary);">antepasado${tf!==1?"s":""} conocido${tf!==1?"s":""}</div>
-  </div>
-  <div style="background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.25rem;margin-bottom:1.25rem;">
-    <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:8px;">
-      <span style="font-size:13px;font-weight:500;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:0.5px;">Memoria Viva</span>
-      <span style="font-size:36px;font-weight:600;color:var(--color-text-primary);">${computeMemoriaViva()}</span>
-    </div>
-    <p style="font-size:12px;color:var(--color-text-secondary);margin:0;line-height:1.6;">En esta medida cada generación completa vale lo mismo: conocer a todos tus abuelos equivale a conocer a todos tus bisabuelos. Lo que cambia es el peso de cada persona: un abuelo vale el doble que un bisabuelo, y el cuádruple que un tatarabuelo.</p>
   </div>
   <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:1.5rem;">
     <div style="background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:1rem;text-align:center;">
