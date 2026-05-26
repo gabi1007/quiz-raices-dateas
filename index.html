@@ -83,19 +83,12 @@ a{color:inherit;}
 <script>
 const LEVEL_NAMES=["Padres","Abuelos","Bisabuelos","Tatarabuelos","Choznos"];
 function lname(l){return l<LEVEL_NAMES.length?LEVEL_NAMES[l]:"Generación "+(l+1);}
-function scount(l){return Math.pow(2,l+1);}
+
 const ICONS={"adultM":'<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="#f5deb3" stroke="#5a7a9a" stroke-width="1.5"/><path d="M6 10 Q16 4 26 10" fill="#5a7a9a" stroke="none"/><rect x="6" y="7" width="20" height="8" rx="2" fill="#5a7a9a"/><circle cx="11" cy="16" r="1.8" fill="#444"/><circle cx="21" cy="16" r="1.8" fill="#444"/><path d="M11 24 Q16 28 21 24" stroke="#c0785a" stroke-width="1.5" fill="none" stroke-linecap="round"/><ellipse cx="9" cy="16" rx="2.5" ry="1.5" fill="#f0c090" opacity="0.5"/><ellipse cx="23" cy="16" rx="2.5" ry="1.5" fill="#f0c090" opacity="0.5"/></svg>',"adultF":'<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="#f5deb3" stroke="#c47aa0" stroke-width="1.5"/><path d="M3 14 Q3 4 16 3 Q29 4 29 14 Q26 6 16 6 Q6 6 3 14 Z" fill="#c47aa0"/><path d="M3 14 Q2 20 3 26 Q4 16 3 14Z" fill="#c47aa0"/><path d="M29 14 Q30 20 29 26 Q28 16 29 14Z" fill="#c47aa0"/><circle cx="11" cy="17" r="1.8" fill="#444"/><circle cx="21" cy="17" r="1.8" fill="#444"/><line x1="9" y1="14" x2="8" y2="12.5" stroke="#444" stroke-width="1" stroke-linecap="round"/><line x1="11" y1="13.5" x2="11" y2="12" stroke="#444" stroke-width="1" stroke-linecap="round"/><line x1="13" y1="14" x2="13.5" y2="12.5" stroke="#444" stroke-width="1" stroke-linecap="round"/><line x1="19" y1="14" x2="18.5" y2="12.5" stroke="#444" stroke-width="1" stroke-linecap="round"/><line x1="21" y1="13.5" x2="21" y2="12" stroke="#444" stroke-width="1" stroke-linecap="round"/><line x1="23" y1="14" x2="23.5" y2="12.5" stroke="#444" stroke-width="1" stroke-linecap="round"/><path d="M11 25 Q16 29 21 25" stroke="#c0785a" stroke-width="1.5" fill="none" stroke-linecap="round"/><ellipse cx="9" cy="17" rx="2.5" ry="1.5" fill="#f0c090" opacity="0.5"/><ellipse cx="23" cy="17" rx="2.5" ry="1.5" fill="#f0c090" opacity="0.5"/></svg>',"oldM":'<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="#f0d5a8" stroke="#7a9a6a" stroke-width="1.5"/><path d="M3 15 Q4 8 9 6 Q9 10 8 14 Z" fill="#cccccc"/><path d="M29 15 Q28 8 23 6 Q23 10 24 14 Z" fill="#cccccc"/><path d="M9 6 Q16 3 23 6" stroke="#cccccc" stroke-width="1" fill="none"/><circle cx="11" cy="17" r="1.8" fill="#444"/><circle cx="21" cy="17" r="1.8" fill="#444"/><path d="M8 13 Q9 12 10 13" stroke="#999" stroke-width="1" fill="none" stroke-linecap="round"/><path d="M22 13 Q23 12 24 13" stroke="#999" stroke-width="1" fill="none" stroke-linecap="round"/><path d="M9 21 Q10 20 11 20.5" stroke="#b09070" stroke-width="1" fill="none" stroke-linecap="round"/><path d="M21 20.5 Q22 20 23 21" stroke="#b09070" stroke-width="1" fill="none" stroke-linecap="round"/><path d="M12 23 Q16 27 20 23" stroke="#c0785a" stroke-width="1.5" fill="none" stroke-linecap="round"/><ellipse cx="9" cy="17" rx="2.5" ry="1.5" fill="#e8c090" opacity="0.5"/><ellipse cx="23" cy="17" rx="2.5" ry="1.5" fill="#e8c090" opacity="0.5"/></svg>',"oldF":'<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="#f0d5a8" stroke="#a07ac4" stroke-width="1.5"/><path d="M3 15 Q4 8 9 6 Q9 10 8 14 Z" fill="#dddddd"/><path d="M29 15 Q28 8 23 6 Q23 10 24 14 Z" fill="#dddddd"/><ellipse cx="16" cy="4" rx="5" ry="3.5" fill="#dddddd"/><circle cx="16" cy="2.5" r="2" fill="#cccccc"/><circle cx="11" cy="17" r="1.8" fill="#444"/><circle cx="21" cy="17" r="1.8" fill="#444"/><line x1="9" y1="14" x2="8" y2="12.5" stroke="#666" stroke-width="1" stroke-linecap="round"/><line x1="11" y1="13.5" x2="11" y2="12" stroke="#666" stroke-width="1" stroke-linecap="round"/><line x1="13" y1="14" x2="13.5" y2="12.5" stroke="#666" stroke-width="1" stroke-linecap="round"/><line x1="19" y1="14" x2="18.5" y2="12.5" stroke="#666" stroke-width="1" stroke-linecap="round"/><line x1="21" y1="13.5" x2="21" y2="12" stroke="#666" stroke-width="1" stroke-linecap="round"/><line x1="23" y1="14" x2="23.5" y2="12.5" stroke="#666" stroke-width="1" stroke-linecap="round"/><path d="M9 21 Q10 20 11 20.5" stroke="#b09070" stroke-width="1" fill="none" stroke-linecap="round"/><path d="M21 20.5 Q22 20 23 21" stroke="#b09070" stroke-width="1" fill="none" stroke-linecap="round"/><path d="M11 25 Q16 29 21 25" stroke="#c0785a" stroke-width="1.5" fill="none" stroke-linecap="round"/><ellipse cx="9" cy="17" rx="2.5" ry="1.5" fill="#e8c090" opacity="0.5"/><ellipse cx="23" cy="17" rx="2.5" ry="1.5" fill="#e8c090" opacity="0.5"/></svg>'};
+
 function slabel(level,idx){
-  if(level===0){
-    const icon=idx===0?ICONS.adultM:ICONS.adultF;
-    const txt=idx===0?"Padre":"Madre";
-    return icon+"<br>"+txt;
-  }
-  if(level===1){
-    const icons=[ICONS.oldM,ICONS.oldF,ICONS.oldM,ICONS.oldF];
-    const txts=["Abuelo pat.","Abuela pat.","Abuelo mat.","Abuela mat."];
-    return icons[idx]+"<br>"+txts[idx];
-  }
+  if(level===0){const icon=idx===0?ICONS.adultM:ICONS.adultF;const txt=idx===0?"Padre":"Madre";return icon+"<br>"+txt;}
+  if(level===1){const icons=[ICONS.oldM,ICONS.oldF,ICONS.oldM,ICONS.oldF];const txts=["Abuelo pat.","Abuela pat.","Abuelo mat.","Abuela mat."];return icons[idx]+"<br>"+txts[idx];}
   return lname(level).replace(/s$/,"")+" "+(idx+1);
 }
 
@@ -109,47 +102,65 @@ const SCORE=[
 ];
 function gscore(lp){return SCORE[Math.min(lp,SCORE.length-1)];}
 
-let phase="quiz",curLevel=0,answers=["",""],history=[];
-function getCount(){return scount(curLevel);}
-function getFilled(){return answers.filter(a=>a.trim().length>0).length;}
-function canAdvance(){const c=getCount();return(c-getFilled())<=c/2;}
+// ── STATE ──────────────────────────────────────────────────
+let phase="quiz";
+let grpLevel=0;
+let grpAns=[["",""],["","","",""]];
+let indivMode=false;
+let genLevel=2;
+let queue=[];
+let qIdx=0;
+let curF="";
+let curM="";
+let genCollected=[];
+let allHistory=[];
 
+function computeScore(){
+  const p0=grpAns[0].filter(a=>a.trim()).length;
+  const p1=grpAns[1].filter(a=>a.trim()).length;
+  const pI=allHistory.reduce((s,g)=>s+g.filter(e=>e.initials.trim()).length,0);
+  const tf=p0+p1+pI;
+  let lp=0;
+  if(p0>0) lp=1;
+  if(p1>0) lp=2;
+  lp+=allHistory.filter(g=>g.some(e=>e.initials.trim())).length;
+  const sc=gscore(lp);
+  const lastGen=lp>0?lname(lp-1):"—";
+  return {tf,lp,sc,lastGen};
+}
+
+// ── RENDER ─────────────────────────────────────────────────
 function render(){
   const app=document.getElementById("app");
-  if(phase==="quiz")app.innerHTML=renderQuiz();
-  else app.innerHTML=renderResult();
+  if(phase==="result") app.innerHTML=renderResult();
+  else if(!indivMode) app.innerHTML=renderGroup();
+  else app.innerHTML=renderIndiv();
   bind();
 }
 
+const DATEAS_BTN=`<div style="text-align:center;margin-top:1.25rem;"><a href="https://www.dateas.com/es/servicio/genealogia/argentina?source=encuesta" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--color-text-secondary);text-decoration:none;padding:6px 14px;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);background:var(--color-background-primary);">🔍 Buscar en dateas.com</a></div>`;
 
-function renderQuiz(){
-  const count=getCount();
-  const filled=getFilled();
-  const ok=canAdvance();
-  const needed=count/2;
-  const showLabels=count<=8;
-  const cols=count<=2?2:count<=8?4:count<=16?4:8;
-  const gap=count>16?"5px":"12px";
-  const inpSize=count>16?"11px":"14px";
-  const inpPad=count>16?"5px 2px":"8px 6px";
+const HOW_BLOCK=`<div style="background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.25rem;margin-top:1rem;"><p style="font-size:13px;font-weight:500;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:0.5px;margin:0 0 10px;">Cómo funciona</p><div style="font-size:14px;color:var(--color-text-primary);display:flex;flex-direction:column;gap:9px;line-height:1.65;"><div style="display:flex;gap:10px;"><span style="color:var(--color-text-secondary);flex-shrink:0;">→</span><span>Ingresa las <strong>iniciales</strong> de nombre y apellido de cada antepasado (ej: <code style="font-size:12px;background:var(--color-background-secondary);padding:1px 5px;border-radius:3px;">JG</code> para Juan García)</span></div><div style="display:flex;gap:10px;"><span style="color:var(--color-text-secondary);flex-shrink:0;">→</span><span>Nivel a nivel: padres → abuelos → bisabuelos → tatarabuelos → ...</span></div><div style="display:flex;gap:10px;"><span style="color:var(--color-text-secondary);flex-shrink:0;">→</span><span>El desafío termina cuando ya no puedes completar ningún antepasado de una generación</span></div><div style="display:flex;gap:10px;"><span style="color:var(--color-text-secondary);flex-shrink:0;">→</span><span>Al final te mostramos cuántos antepasados conoces</span></div></div></div>`;
 
-  const dots=history.map(()=>`<div style="width:20px;height:5px;border-radius:3px;background:var(--color-text-success);"></div>`).join("")+
-    `<div style="width:28px;height:7px;border-radius:3px;background:var(--color-border-secondary);"></div>`;
+function dots(level){
+  return Array.from({length:level+1},(_,i)=>
+    `<div style="width:${i<level?20:28}px;height:${i<level?5:7}px;border-radius:3px;background:${i<level?"var(--color-text-success)":"var(--color-border-secondary)"}"></div>`
+  ).join("");
+}
 
-  const inputs=answers.map((v,i)=>`
+function renderGroup(){
+  const isFirst=grpLevel===0;
+  const ans=grpAns[grpLevel];
+  const count=ans.length;
+  const filled=ans.filter(a=>a.trim()).length;
+  const cols=grpLevel===0?2:4;
+  const inputs=ans.map((v,i)=>`
     <div style="text-align:center;">
-      ${showLabels?`<div style="font-size:11px;color:var(--color-text-secondary);margin-bottom:4px;min-height:52px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;line-height:1.3;">${slabel(curLevel,i)}</div>`:""}
-      <input type="text" id="i${i}" data-idx="${i}" maxlength="6" value="${v}" placeholder="—" autocomplete="off"
-        style="font-size:${inpSize};padding:${inpPad};"/>
-      ${!showLabels?`<div style="font-size:9px;color:var(--color-text-secondary);margin-top:2px;">${i+1}</div>`:""}
+      <div style="font-size:11px;color:var(--color-text-secondary);margin-bottom:4px;min-height:52px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;line-height:1.3;">${slabel(grpLevel,i)}</div>
+      <input type="text" id="g${i}" data-grp="${i}" maxlength="6" value="${v}" placeholder="—" autocomplete="off" style="font-size:14px;padding:8px 6px;width:100%;box-sizing:border-box;"/>
     </div>`).join("");
 
-  const isFirst=curLevel===0;
-  const headerBlock=isFirst
-    ?`<div style="text-align:center;margin-bottom:1.75rem;">
-    <div style="font-size:11px;color:var(--color-text-secondary);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;">dateas.com presenta</div>
-    <div style="position:relative;display:inline-block;margin-bottom:14px;">
-      <svg width="90" height="90" viewBox="0 0 90 90" xmlns="http://www.w3.org/2000/svg">
+  const treeSVG=`<svg width="90" height="90" viewBox="0 0 90 90" xmlns="http://www.w3.org/2000/svg">
         <!-- trunk -->
         <rect x="41" y="60" width="8" height="22" rx="2" fill="#8B6914" opacity="0.85"/>
         <!-- roots -->
@@ -163,80 +174,108 @@ function renderQuiz(){
         <ellipse cx="45" cy="16" rx="10" ry="9" fill="#4DCF7A"/>
         <!-- small highlight -->
         <ellipse cx="39" cy="20" rx="4" ry="3" fill="#6EE89A" opacity="0.5"/>
-      </svg>
-    </div>
+      </svg>`;
+  const headerBlock=isFirst
+    ?`<div style="text-align:center;margin-bottom:1.75rem;">
+    <div style="font-size:12px;color:var(--color-text-secondary);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;">dateas.com presenta</div>
+    <div style="display:inline-block;margin-bottom:14px;">${treeSVG}</div>
     <h2 style="font-size:27px;font-weight:600;margin:0 0 6px;line-height:1.3;color:var(--color-text-primary);">¿Cuánto sabes de tus raíces familiares?</h2>
-    
     <p style="color:var(--color-text-secondary);font-size:14px;margin:0;line-height:1.65;max-width:380px;display:inline-block;">Avanza nivel por nivel en tu árbol genealógico, para ver hasta dónde llegas.</p>
   </div>`
     :`<div style="text-align:center;margin-bottom:1.5rem;">
-    <div style="font-size:11px;color:var(--color-text-secondary);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">dateas.com · nivel ${curLevel+1}</div>
-    <h2 style="font-size:24px;font-weight:500;margin:0 0 6px;">${lname(curLevel)}</h2>
-    <p style="color:var(--color-text-secondary);font-size:14px;margin:0 0 14px;">
-      ${count} antepasado${count!==1?"s":""} &nbsp;·&nbsp; Necesitas completar al menos ${needed} para avanzar
-    </p>
-    <div style="display:flex;justify-content:center;align-items:center;gap:5px;">${dots}</div>
+    <div style="font-size:12px;color:var(--color-text-secondary);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">dateas.com · nivel 2</div>
+    <h2 style="font-size:24px;font-weight:500;margin:0 0 6px;">Abuelos</h2>
+    <p style="color:var(--color-text-secondary);font-size:14px;margin:0 0 14px;">4 antepasados · completa los que conozcas</p>
+    <div style="display:flex;justify-content:center;align-items:center;gap:5px;">${dots(1)}</div>
   </div>`;
 
-  return`<div style="max-width:640px;margin:0 auto;">
+  const hint=isFirst
+    ?"Completa las iniciales de tus padres para comenzar"
+    :`Completa con las iniciales de nombre y apellido (ej: <code style="background:var(--color-background-secondary);padding:1px 5px;border-radius:3px;font-size:12px;">JG</code>). Deja en blanco lo que no sepas.`;
+
+  return `<div style="max-width:640px;margin:0 auto;">
   ${headerBlock}
   <div style="background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.5rem;margin-bottom:1rem;">
-    <p style="font-size:14px;color:var(--color-text-secondary);text-align:center;margin:0 0 1.25rem;">
-      Completa con las iniciales de nombre y apellido (ej: <code style="background:var(--color-background-secondary);padding:1px 5px;border-radius:3px;font-size:12px;">JG</code>). Deja en blanco lo que no sepas.
-    </p>
-    <div style="display:grid;grid-template-columns:repeat(${cols},minmax(0,1fr));gap:${gap};margin-bottom:1.25rem;">${inputs}</div>
-    <div style="display:flex;justify-content:center;align-items:center;gap:16px;font-size:14px;padding-top:1rem;border-top:0.5px solid var(--color-border-tertiary);">
-      <span style="color:var(--color-text-secondary);"><strong id="filled-display" style="color:var(--color-text-primary);font-weight:500;">${filled}</strong> de ${count} completados</span>
-      <span style="color:var(--color-border-secondary);">|</span>
-      <span id="status-text" style="color:${ok?"var(--color-text-success)":"var(--color-text-secondary)"};">
-        ${ok?'<i class="ti ti-check" aria-hidden="true"></i> Puedes avanzar':`Necesitas ${needed-filled} más`}
-      </span>
+    <p style="font-size:14px;color:var(--color-text-secondary);text-align:center;margin:0 0 1.25rem;">${hint}</p>
+    <div style="display:grid;grid-template-columns:repeat(${cols},minmax(0,1fr));gap:12px;margin-bottom:1.25rem;">${inputs}</div>
+    <div style="display:flex;justify-content:center;font-size:14px;padding-top:1rem;border-top:0.5px solid var(--color-border-tertiary);">
+      <span style="color:var(--color-text-secondary);"><strong id="filled-display" style="color:var(--color-text-primary);">${filled}</strong> de ${count} completados</span>
     </div>
   </div>
   <div style="text-align:center;">
-    <button id="btn-continue" style="font-size:16px;padding:11px 32px;">${ok?"Continuar":"Finalizar desafío"} &nbsp;<i class="ti ti-arrow-right" aria-hidden="true"></i></button>
+    <button id="btn-grp" style="font-size:16px;padding:11px 32px;">Continuar &nbsp;→</button>
   </div>
-  <div style="text-align:center;margin-top:1.25rem;">
-    <a href="https://www.dateas.com/es/servicio/genealogia/argentina?source=encuesta" target="_blank" rel="noopener"
-      style="display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--color-text-secondary);text-decoration:none;padding:6px 14px;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);background:var(--color-background-primary);">
-      🔍 Buscar en dateas.com
-    </a>
+  ${DATEAS_BTN}
+  ${isFirst?HOW_BLOCK:""}
+</div>`;
+}
+
+function renderIndiv(){
+  const ancestor=queue[qIdx];
+  const genName=lname(genLevel);
+  const qLabel=queue.length>1?`${qIdx+1} de ${queue.length} · `:"";
+
+  const fatherIcon=ICONS.adultM;
+  const motherIcon=ICONS.adultF;
+
+  return `<div style="max-width:640px;margin:0 auto;">
+  <div style="text-align:center;margin-bottom:1.5rem;">
+    <div style="font-size:12px;color:var(--color-text-secondary);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">dateas.com · ${genName}</div>
+    <h2 style="font-size:22px;font-weight:500;margin:0 0 6px;">Completa los nombres de tus ${genName.toLowerCase()}</h2>
+    <p style="color:var(--color-text-secondary);font-size:13px;margin:0 0 14px;">${qLabel}deja en blanco lo que no sepas</p>
+    <div style="display:flex;justify-content:center;align-items:center;gap:5px;">${dots(genLevel)}</div>
   </div>
-  ${isFirst?`<div style="background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.25rem;margin-top:1rem;">
-    <p style="font-size:13px;font-weight:500;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:0.5px;margin:0 0 10px;">Cómo funciona</p>
-    <div style="font-size:14px;color:var(--color-text-primary);display:flex;flex-direction:column;gap:9px;line-height:1.65;">
-      <div style="display:flex;gap:10px;"><span style="color:var(--color-text-secondary);flex-shrink:0;">→</span><span>Ingresa las <strong style="font-weight:500;">iniciales</strong> de nombre y apellido (ej: <code style="font-size:12px;background:var(--color-background-secondary);padding:1px 5px;border-radius:3px;">JG</code> para Juan García)</span></div>
-      <div style="display:flex;gap:10px;"><span style="color:var(--color-text-secondary);flex-shrink:0;">→</span><span>Avanzarás nivel a nivel: padres → abuelos → bisabuelos → tatarabuelos → ...</span></div>
-      <div style="display:flex;gap:10px;"><span style="color:var(--color-text-secondary);flex-shrink:0;">→</span><span>El desafío se detiene cuando dejas en blanco <strong style="font-weight:500;">más de la mitad</strong> de los casilleros de un nivel</span></div>
-      <div style="display:flex;gap:10px;"><span style="color:var(--color-text-secondary);flex-shrink:0;">→</span><span>Al final te mostramos cuántos antepasados conoces</span></div>
+  <div style="background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.5rem;margin-bottom:1rem;">
+    <p style="font-size:13px;color:var(--color-text-secondary);text-align:center;margin:0 0 1.25rem;">Completa con las iniciales de nombre y apellido</p>
+    <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:0.5rem;">
+      <div style="text-align:center;">
+        <div style="min-height:52px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;margin-bottom:6px;">${fatherIcon}<span style="font-size:12px;color:var(--color-text-secondary);margin-top:3px;">Padre</span></div>
+        <input type="text" id="indiv-f" maxlength="6" value="${curF}" placeholder="—" autocomplete="off"
+          style="font-size:14px;padding:8px 6px;width:100%;box-sizing:border-box;text-align:center;text-transform:uppercase;letter-spacing:1px;"/>
+      </div>
+      <div style="text-align:center;">
+        <div style="min-height:52px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;margin-bottom:6px;">${motherIcon}<span style="font-size:12px;color:var(--color-text-secondary);margin-top:3px;">Madre</span></div>
+        <input type="text" id="indiv-m" maxlength="6" value="${curM}" placeholder="—" autocomplete="off"
+          style="font-size:14px;padding:8px 6px;width:100%;box-sizing:border-box;text-align:center;text-transform:uppercase;letter-spacing:1px;"/>
+      </div>
     </div>
-  </div>`:""}
+  </div>
+  <div style="background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.25rem;margin-bottom:1rem;text-align:center;">
+    <div style="font-size:13px;color:var(--color-text-secondary);margin-bottom:10px;">${qIdx+1}. ${ancestor.label}</div>
+    <div style="font-size:54px;font-weight:700;color:var(--color-text-primary);letter-spacing:4px;line-height:1;">${ancestor.initials}</div>
+  </div>
+  <div style="text-align:center;">
+    <button id="btn-indiv" style="font-size:16px;padding:11px 32px;">Siguiente &nbsp;→</button>
+  </div>
+  ${DATEAS_BTN}
 </div>`;
 }
 
 function renderResult(){
-  const lp=history.filter(h=>(h.total-h.filled)<=h.total/2).length;
-  const tf=history.reduce((s,h)=>s+h.filled,0);
-  const ts=history.reduce((s,h)=>s+h.total,0);
-  const pct=ts>0?Math.round(tf/ts*100):0;
-  const sc=gscore(lp);
+  const {tf,lp,sc,lastGen}=computeScore();
+  const lastGenSize=lastGen.length>10?"14px":"20px";
   const starsHtml=Array.from({length:5},(_,i)=>
     `<span class="${i<sc.stars?"star-fill":"star-empty"}" style="font-size:22px;">${i<sc.stars?"★":"☆"}</span>`
   ).join("");
-  const bars=history.map(h=>{
-    const p=Math.round(h.filled/h.total*100);
-    const ok=(h.total-h.filled)<=h.total/2;
+
+  const barsData=[
+    {label:"Padres",filled:grpAns[0].filter(a=>a.trim()).length,total:2},
+    {label:"Abuelos",filled:grpAns[1].filter(a=>a.trim()).length,total:4},
+    ...allHistory.map((gen,i)=>({label:lname(i+2),filled:gen.filter(e=>e.initials.trim()).length,total:gen.length}))
+  ].filter(b=>b.total>0);
+
+  const bars=barsData.map(b=>{
+    const p=Math.round(b.filled/b.total*100);
+    const ok=b.filled>0;
     return`<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
-      <div style="font-size:13px;color:var(--color-text-secondary);width:110px;flex-shrink:0;">${lname(h.level)}</div>
+      <div style="font-size:13px;color:var(--color-text-secondary);width:110px;flex-shrink:0;">${b.label}</div>
       <div style="flex:1;height:8px;background:var(--color-background-secondary);border-radius:4px;overflow:hidden;">
-        <div class="${ok?"bar-pass":"bar-fail"}" style="height:100%;width:${p}%;border-radius:4px;"></div>
+        <div style="height:100%;width:${p}%;border-radius:4px;background:${ok?"var(--color-text-success)":"var(--color-text-danger)"}"></div>
       </div>
-      <div style="font-size:13px;color:var(--color-text-secondary);width:42px;text-align:right;">${h.filled}/${h.total}</div>
-      <i class="ti ti-${ok?"check":"x"}" style="font-size:14px;color:var(--color-text-${ok?"success":"danger"});" aria-hidden="true"></i>
+      <div style="font-size:13px;color:var(--color-text-secondary);width:42px;text-align:right;">${b.filled}/${b.total}</div>
+      <span style="color:var(--color-text-${ok?"success":"danger"})">${ok?"✔":"✘"}</span>
     </div>`;
   }).join("");
-  const lastGen=lp>0?lname(lp-1):"—";
-  const lastGenSize=lastGen.length>10?"14px":"20px";
 
   return`<div style="max-width:580px;margin:0 auto;">
   <div style="text-align:center;margin-bottom:1.75rem;">
@@ -246,7 +285,7 @@ function renderResult(){
     <div style="display:flex;justify-content:center;gap:3px;">${starsHtml}</div>
   </div>
   <div style="background:var(--color-background-secondary);border-radius:var(--border-radius-lg);padding:1.5rem;margin-bottom:1.25rem;text-align:center;border:0.5px solid var(--color-border-tertiary);">
-    <div style="font-size:12px;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">Tu puntaje</div>
+    <div style="font-size:13px;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">Tu puntaje</div>
     <div style="font-size:56px;font-weight:600;line-height:1;margin-bottom:6px;">${tf}</div>
     <div style="font-size:15px;color:var(--color-text-secondary);">antepasado${tf!==1?"s":""} conocido${tf!==1?"s":""}</div>
   </div>
@@ -272,7 +311,7 @@ function renderResult(){
     <div style="display:flex;gap:8px;flex-wrap:wrap;">
       <input type="text" id="user-name" placeholder="Tu nombre (opcional)" maxlength="60"
         style="flex:1;min-width:160px;font-size:14px;padding:9px 12px;text-align:left;text-transform:none;letter-spacing:0;"/>
-      <button onclick="registerResult()" id="btn-register"
+      <button onclick="registerResult()"
         style="font-size:14px;padding:9px 18px;background:var(--color-text-primary);color:var(--color-background-primary);border:none;border-radius:var(--border-radius-md);cursor:pointer;font-family:inherit;font-weight:500;white-space:nowrap;">
         📋 Registrar resultado
       </button>
@@ -281,24 +320,23 @@ function renderResult(){
   <div style="background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.25rem;margin-bottom:1rem;">
     <p style="font-size:13px;font-weight:500;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:0.5px;margin:0 0 12px;">Compartir desafío</p>
     <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;">
-      <a id="share-whatsapp" href="#" target="_blank" rel="noopener"
+      <a id="share-wa" href="#" target="_blank" rel="noopener"
         style="display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 14px;border-radius:var(--border-radius-md);text-decoration:none;font-size:14px;background:#25D366;color:#fff;font-weight:500;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.104.549 4.076 1.508 5.788L0 24l6.388-1.487A11.946 11.946 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.808 9.808 0 01-5.031-1.388l-.36-.214-3.736.979.997-3.648-.235-.374A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg> WhatsApp</a>
+      <a id="share-tg" href="#" target="_blank" rel="noopener"
+        style="display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 14px;border-radius:var(--border-radius-md);text-decoration:none;font-size:14px;background:#229ED9;color:#fff;font-weight:500;">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.104.549 4.076 1.508 5.788L0 24l6.388-1.487A11.946 11.946 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.808 9.808 0 01-5.031-1.388l-.36-.214-3.736.979.997-3.648-.235-.374A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
         WhatsApp
       </a>
       <a id="share-telegram" href="#" target="_blank" rel="noopener"
         style="display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 14px;border-radius:var(--border-radius-md);text-decoration:none;font-size:14px;background:#229ED9;color:#fff;font-weight:500;">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248l-2.022 9.531c-.148.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L6.26 14.4l-2.95-.924c-.642-.2-.655-.642.136-.953l11.527-4.445c.537-.194 1.006.131.589 2.17z"/></svg>
-        Telegram
-      </a>
-      <button id="share-mail" onclick="shareByEmail()"
-        style="display:flex;align-items:center;justify-content:center;gap:8px;padding:9px 12px;border-radius:var(--border-radius-md);font-size:13px;background:var(--color-background-secondary);color:var(--color-text-primary);border:0.5px solid var(--color-border-secondary);cursor:pointer;font-family:inherit;text-decoration:none;width:100%;">
-        ✉ E-mail
-      </button>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248l-2.022 9.531c-.148.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L6.26 14.4l-2.95-.924c-.642-.2-.655-.642.136-.953l11.527-4.445c.537-.194 1.006.131.589 2.17z"/></svg> Telegram</a>
+      <button onclick="shareByEmail()"
+        style="display:flex;align-items:center;justify-content:center;gap:8px;padding:9px 12px;border-radius:var(--border-radius-md);font-size:13px;background:var(--color-background-secondary);color:var(--color-text-primary);border:0.5px solid var(--color-border-secondary);cursor:pointer;font-family:inherit;width:100%;">
+        ✉ E-mail</button>
       <button id="share-copy"
         style="display:flex;align-items:center;justify-content:center;gap:8px;padding:9px 12px;border-radius:var(--border-radius-md);font-size:13px;background:var(--color-background-secondary);color:var(--color-text-primary);border:0.5px solid var(--color-border-secondary);cursor:pointer;font-family:inherit;">
-        🔗 <span id="copy-label">Copiar mensaje</span>
-      </button>
+        🔗 <span id="copy-label">Copiar mensaje</span></button>
     </div>
   </div>
   <div style="display:flex;gap:12px;flex-wrap:wrap;">
@@ -306,90 +344,100 @@ function renderResult(){
       style="flex:1;text-align:center;padding:10px 20px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);text-decoration:none;font-size:15px;background:var(--color-background-secondary);display:inline-flex;align-items:center;justify-content:center;gap:6px;">
       🔍 Buscar en dateas.com ↗
     </a>
-    <button id="btn-restart" style="flex-shrink:0;font-size:15px;padding:10px 20px;">
-      ↺ Intentar de nuevo
-    </button>
+    <button id="btn-restart" style="flex-shrink:0;font-size:15px;padding:10px 20px;">↺ Intentar de nuevo</button>
   </div>
 </div>`;
 }
 
-function updateStatus(){
-  const count=getCount();
-  const filled=getFilled();
-  const ok=canAdvance();
-  const needed=count/2;
-  const fd=document.getElementById("filled-display");
-  const st=document.getElementById("status-text");
-  const bc=document.getElementById("btn-continue");
-  if(fd)fd.textContent=filled;
-  if(st){
-    st.style.color=ok?"var(--color-text-success)":"var(--color-text-secondary)";
-    st.innerHTML=ok?'<i class="ti ti-check" aria-hidden="true"></i> Puedes avanzar':`Necesitas ${Math.max(0,needed-filled)} más`;
-  }
-  if(bc)bc.innerHTML=(ok?"Continuar":"Finalizar desafío")+' &nbsp;<i class="ti ti-arrow-right" aria-hidden="true"></i>';
-}
-
-function handleContinue(){
-  const count=getCount();
-  const filled=getFilled();
-  const empty=count-filled;
-  history=[...history,{level:curLevel,filled,total:count}];
-  if(empty>count/2||curLevel>=7){phase="result";render();}
-  else{curLevel++;answers=new Array(scount(curLevel)).fill("");render();}
-}
-
 function bind(){
-
-  document.querySelectorAll("[data-idx]").forEach(inp=>{
+  // Group inputs
+  document.querySelectorAll("[data-grp]").forEach(inp=>{
     inp.addEventListener("input",e=>{
-      const i=parseInt(e.target.dataset.idx);
+      const i=parseInt(e.target.dataset.grp);
       const clean=e.target.value.toUpperCase().replace(/[^A-ZÁÉÍÓÚÜÑ.]/g,"");
-      answers[i]=clean;
+      grpAns[grpLevel][i]=clean;
       e.target.value=clean;
-      updateStatus();
+      const fd=document.getElementById("filled-display");
+      if(fd) fd.textContent=grpAns[grpLevel].filter(a=>a.trim()).length;
     });
   });
-  const bc=document.getElementById("btn-continue");
-  if(bc)bc.addEventListener("click",handleContinue);
+
+  // Group continue
+  const bgc=document.getElementById("btn-grp");
+  if(bgc) bgc.addEventListener("click",()=>{
+    if(grpLevel===0){
+      grpLevel=1; render();
+    } else {
+      const labels=["Abuelo pat.","Abuela pat.","Abuelo mat.","Abuela mat."];
+      queue=grpAns[1].map((v,i)=>({label:labels[i],initials:v.trim()})).filter(e=>e.initials);
+      if(!queue.length){ phase="result"; render(); return; }
+      indivMode=true; genLevel=2; qIdx=0; curF=""; curM=""; genCollected=[]; allHistory=[];
+      render();
+    }
+  });
+
+  // Individual inputs
+  const fi=document.getElementById("indiv-f");
+  if(fi) fi.addEventListener("input",e=>{curF=e.target.value.toUpperCase().replace(/[^A-ZÁÉÍÓÚÜÑ.]/g,"");e.target.value=curF;});
+  const mi=document.getElementById("indiv-m");
+  if(mi) mi.addEventListener("input",e=>{curM=e.target.value.toUpperCase().replace(/[^A-ZÁÉÍÓÚÜÑ.]/g,"");e.target.value=curM;});
+
+  // Individual next
+  const bin=document.getElementById("btn-indiv");
+  if(bin) bin.addEventListener("click",()=>{
+    const ancestor=queue[qIdx];
+    const fVal=curF.trim();
+    const mVal=curM.trim();
+    if(fVal) genCollected.push({label:"Padre de "+ancestor.initials+" ("+ancestor.label+")",initials:fVal});
+    if(mVal) genCollected.push({label:"Madre de "+ancestor.initials+" ("+ancestor.label+")",initials:mVal});
+    if(qIdx<queue.length-1){
+      qIdx++; curF=""; curM=""; render();
+    } else {
+      allHistory.push([...genCollected]);
+      const filled=genCollected.filter(e=>e.initials).length;
+      if(filled===0){ phase="result"; render(); }
+      else {
+        queue=[...genCollected.filter(e=>e.initials)];
+        genLevel++; qIdx=0; curF=""; curM=""; genCollected=[];
+        render();
+      }
+    }
+  });
+
+  // Restart
   const br=document.getElementById("btn-restart");
-  if(br)br.addEventListener("click",()=>{phase="quiz";curLevel=0;answers=["",""];history=[];render();});
-
-  // Share buttons
-  const URL="https://gabi1007.github.io/quiz-raices-dateas/";
-  const lp=history.filter(h=>(h.total-h.filled)<=h.total/2).length;
-  const lastGenShare=lp>0?lname(lp-1):"ninguna generación";
-  const sc=gscore(lp);
-  const tf2=history.reduce((s,h)=>s+h.filled,0); const personalMsg="Conocí "+tf2+" antepasado"+(tf2!==1?"s":"")+" en el desafío genealógico de dateas.com (llegué hasta "+lastGenShare+"). ¿Tú hasta dónde llegas?";
-  const baseMsg="Haz este desafío genealógico y descubre cuánto sabes de tus raíces familiares 🌳";
-  const fullMsg=personalMsg+" → "+URL;
-  const introMsg=baseMsg+" → "+URL;
-
-  const wa=document.getElementById("share-whatsapp");
-  if(wa)wa.href="https://wa.me/?text="+encodeURIComponent(fullMsg);
-
-  const tg=document.getElementById("share-telegram");
-  if(tg)tg.href="https://t.me/share/url?url="+encodeURIComponent(URL)+"&text="+encodeURIComponent(personalMsg);
-
-
-
-  const cp=document.getElementById("share-copy");
-  if(cp)cp.addEventListener("click",()=>{
-    navigator.clipboard.writeText(fullMsg).then(()=>{
-      const lbl=document.getElementById("copy-label");
-      if(lbl){lbl.textContent="¡Copiado!";setTimeout(()=>{lbl.textContent="Copiar mensaje";},2000);}
-    });
+  if(br) br.addEventListener("click",()=>{
+    phase="quiz"; grpLevel=0; grpAns=[["",""],["","","",""]];
+    indivMode=false; genLevel=2; queue=[]; qIdx=0; curF=""; curM="";
+    genCollected=[]; allHistory=[];
+    render();
   });
+
+  // Share (result only)
+  if(phase==="result"){
+    const {tf,lp,lastGen}=computeScore();
+    const personalMsg="Conocí "+tf+" antepasado"+(tf!==1?"s":"")+" en el desafío genealógico de dateas.com (llegué hasta "+lastGen+"). ¿Tú hasta dónde llegas?";
+    const baseMsg="Haz este desafío genealógico y descubre cuánto sabes de tus raíces familiares 🌳";
+    const fullMsg=personalMsg+" → https://gabi1007.github.io/quiz-raices-dateas/";
+    const wa=document.getElementById("share-wa");
+    if(wa) wa.href="https://wa.me/?text="+encodeURIComponent(fullMsg);
+    const tg=document.getElementById("share-tg");
+    if(tg) tg.href="https://t.me/share/url?url="+encodeURIComponent("https://gabi1007.github.io/quiz-raices-dateas/")+"&text="+encodeURIComponent(personalMsg);
+    const cp=document.getElementById("share-copy");
+    if(cp) cp.addEventListener("click",()=>{
+      navigator.clipboard.writeText(fullMsg).then(()=>{
+        const lbl=document.getElementById("copy-label");
+        if(lbl){lbl.textContent="¡Copiado!";setTimeout(()=>{lbl.textContent="Copiar mensaje";},2000);}
+      });
+    });
+  }
 }
 
 function registerResult(){
-  const FORM_URL="https://docs.google.com/forms/d/e/1FAIpQLSf4Wl5wfAHfp1etI03mTS6qb3r4uKIBg6WK0BIDm4BfN_h8Yw/viewform?usp=pp_url";
-  const lp=history.filter(h=>(h.total-h.filled)<=h.total/2).length;
-  const lastGen=lp>0?lname(lp-1):"Ninguna";
-  const tf2=history.reduce((s,h)=>s+h.filled,0);
-  const sc=gscore(lp);
+  const {tf,lp,lastGen,sc}=computeScore();
   const nombre=document.getElementById("user-name")?document.getElementById("user-name").value.trim():"";
-  const url=FORM_URL
-    +"&entry.1451495548="+encodeURIComponent(tf2)
+  const url="https://docs.google.com/forms/d/e/1FAIpQLSf4Wl5wfAHfp1etI03mTS6qb3r4uKIBb6WK0BIDm4BfN_h8Yw/viewform?usp=pp_url"
+    +"&entry.1451495548="+encodeURIComponent(tf)
     +"&entry.1380483806="+encodeURIComponent(lp)
     +"&entry.1990265955="+encodeURIComponent(lastGen)
     +"&entry.119526599="+encodeURIComponent(sc.title)
@@ -398,16 +446,11 @@ function registerResult(){
 }
 
 function shareByEmail(){
-  const URL="https://gabi1007.github.io/quiz-raices-dateas/";
-  const lp=history.filter(h=>(h.total-h.filled)<=h.total/2).length;
-  const lastGen=lp>0?lname(lp-1):"ninguna generación";
-  const tf2=history.reduce((s,h)=>s+h.filled,0);
-  const personalMsg="Conocí "+tf2+" antepasado"+(tf2!==1?"s":"")+" en el desafío genealógico de dateas.com (llegué hasta "+lastGen+"). ¿Tú hasta dónde llegas?";
+  const {tf,lp,lastGen}=computeScore();
+  const personalMsg="Conocí "+tf+" antepasado"+(tf!==1?"s":"")+" en el desafío genealógico de dateas.com (llegué hasta "+lastGen+"). ¿Tú hasta dónde llegas?";
   const baseMsg="Haz este desafío genealógico y descubre cuánto sabes de tus raíces familiares 🌳";
-  const fullMsg=personalMsg+" → "+URL;
-  const subject=encodeURIComponent("¿Cuánto sabes de tus raíces? — dateas.com");
-  const body=encodeURIComponent(fullMsg+"\n\n"+baseMsg);
-  window.location.href="mailto:?subject="+subject+"&body="+body;
+  const fullMsg=personalMsg+" → https://gabi1007.github.io/quiz-raices-dateas/";
+  window.location.href="mailto:?subject="+encodeURIComponent("¿Cuánto sabes de tus raíces? — dateas.com")+"&body="+encodeURIComponent(fullMsg+"\n\n"+baseMsg);
 }
 
 render();
