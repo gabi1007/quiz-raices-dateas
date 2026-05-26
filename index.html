@@ -343,7 +343,13 @@ function renderResult(){
     </div>
   </div>
   <div style="background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.25rem;margin-bottom:1rem;">
-    <p style="font-size:13px;font-weight:500;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:0.5px;margin:0 0 12px;">Compartí tu puntaje y desafiá a familiares y amigos</p>
+    <div style="display:flex;justify-content:center;margin-bottom:1rem;">
+    <button onclick="generateResultImage()"
+      style="display:flex;align-items:center;gap:10px;font-size:15px;padding:13px 24px;background:linear-gradient(135deg,#1c3a2a,#2D8A4E);color:#fff;border:none;border-radius:var(--border-radius-lg);cursor:pointer;font-family:inherit;font-weight:500;width:100%;justify-content:center;">
+      📸 Descargar imagen para Instagram / Facebook
+    </button>
+  </div>
+  <p style="font-size:13px;font-weight:500;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:0.5px;margin:0 0 12px;">Compartí tu puntaje y desafiá a familiares y amigos</p>
     <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;">
       <a id="share-wa" href="#" target="_blank" rel="noopener"
         style="display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 14px;border-radius:var(--border-radius-md);text-decoration:none;font-size:14px;background:#25D366;color:#fff;font-weight:500;">
@@ -491,6 +497,105 @@ function shareByEmail(){
   const fullMsg=personalMsg+" → https://gabi1007.github.io/quiz-raices-dateas/";
   window.location.href="mailto:?subject="+encodeURIComponent("¿Cuánto sabés de tus raíces? — dateas.com")+"&body="+encodeURIComponent(fullMsg+"\n\n"+baseMsg);
 }
+
+function generateResultImage(){
+  const {tf,lp,sc}=computeScore();
+  const stars="★".repeat(sc.stars)+"☆".repeat(5-sc.stars);
+  const url="dateas.com/encuesta-genealogica";
+
+  const W=1080, H=1080;
+  const canvas=document.createElement("canvas");
+  canvas.width=W; canvas.height=H;
+  const ctx=canvas.getContext("2d");
+
+  // Background gradient
+  const grad=ctx.createLinearGradient(0,0,0,H);
+  grad.addColorStop(0,"#1c3a2a");
+  grad.addColorStop(1,"#0d1f14");
+  ctx.fillStyle=grad;
+  ctx.fillRect(0,0,W,H);
+
+  // Subtle grid pattern
+  ctx.strokeStyle="rgba(255,255,255,0.04)";
+  ctx.lineWidth=1;
+  for(let x=0;x<W;x+=60){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();}
+  for(let y=0;y<H;y+=60){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
+
+  // Top accent line
+  ctx.fillStyle="#4DCF7A";
+  ctx.fillRect(0,0,W,6);
+
+  // dateas.com label
+  ctx.fillStyle="rgba(77,207,122,0.9)";
+  ctx.font="bold 36px Arial, sans-serif";
+  ctx.textAlign="center";
+  ctx.fillText("dateas.com", W/2, 90);
+
+  // Divider
+  ctx.fillStyle="rgba(255,255,255,0.15)";
+  ctx.fillRect(W/2-180,110,360,2);
+
+  // Title
+  ctx.fillStyle="rgba(255,255,255,0.7)";
+  ctx.font="32px Arial, sans-serif";
+  ctx.fillText("¿Cuánto sabés de tus raíces familiares?", W/2, 160);
+
+  // Emoji
+  ctx.font="120px Arial, sans-serif";
+  ctx.fillText(sc.emoji, W/2, 320);
+
+  // Result title
+  ctx.fillStyle="#ffffff";
+  ctx.font="bold 64px Arial, sans-serif";
+  ctx.fillText(sc.title, W/2, 420);
+
+  // Stars
+  ctx.fillStyle="#f0a020";
+  ctx.font="70px Arial, sans-serif";
+  ctx.fillText(stars, W/2, 510);
+
+  // Divider
+  ctx.fillStyle="rgba(255,255,255,0.15)";
+  ctx.fillRect(W/2-200,545,400,2);
+
+  // Score
+  ctx.fillStyle="#4DCF7A";
+  ctx.font="bold 110px Arial, sans-serif";
+  ctx.fillText(tf, W/2, 670);
+
+  ctx.fillStyle="rgba(255,255,255,0.75)";
+  ctx.font="38px Arial, sans-serif";
+  ctx.fillText("antepasado"+(tf!==1?"s":"")+" conocido"+(tf!==1?"s":""), W/2, 725);
+
+  // Call to action
+  ctx.fillStyle="rgba(255,255,255,0.5)";
+  ctx.font="30px Arial, sans-serif";
+  ctx.fillText("¿Vos hasta dónde llegás?", W/2, 820);
+
+  // URL pill
+  ctx.fillStyle="rgba(77,207,122,0.15)";
+  const pillW=460, pillH=66, pillX=(W-pillW)/2, pillY=860;
+  ctx.beginPath();
+  ctx.roundRect(pillX, pillY, pillW, pillH, 33);
+  ctx.fill();
+  ctx.strokeStyle="rgba(77,207,122,0.5)";
+  ctx.lineWidth=1.5;
+  ctx.stroke();
+  ctx.fillStyle="#4DCF7A";
+  ctx.font="bold 28px Arial, sans-serif";
+  ctx.fillText(url, W/2, pillY+42);
+
+  // Bottom accent
+  ctx.fillStyle="#4DCF7A";
+  ctx.fillRect(0,H-6,W,6);
+
+  // Download
+  const link=document.createElement("a");
+  link.download="mis-raices-dateas.png";
+  link.href=canvas.toDataURL("image/png");
+  link.click();
+}
+
 
 render();
 </script>
