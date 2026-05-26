@@ -331,17 +331,7 @@ function renderResult(){
   <div style="background:var(--color-background-secondary);border-radius:var(--border-radius-lg);padding:1.25rem;margin-bottom:1.5rem;">
     <p style="margin:0;line-height:1.75;color:var(--color-text-primary);font-size:16px;">${sc.msg}</p>
   </div>
-  <div style="background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.25rem;margin-bottom:1rem;">
-    <p style="font-size:14px;color:var(--color-text-primary);margin:0 0 12px;line-height:1.6;">Ingresá tu nombre de pila y sumá tu resultado a la primera encuesta sobre genealogía familiar</p>
-    <div style="display:flex;gap:8px;flex-wrap:wrap;">
-      <input type="text" id="user-name" placeholder="Tu nombre (opcional)" maxlength="60"
-        style="flex:1;min-width:160px;font-size:14px;padding:9px 12px;text-align:left;text-transform:none;letter-spacing:0;"/>
-      <button onclick="registerResult()"
-        style="font-size:14px;padding:9px 18px;background:var(--color-text-primary);color:var(--color-background-primary);border:none;border-radius:var(--border-radius-md);cursor:pointer;font-family:inherit;font-weight:500;white-space:nowrap;">
-        📋 Registrar resultado
-      </button>
-    </div>
-  </div>
+
   <div style="background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.25rem;margin-bottom:1rem;">
     <p style="font-size:13px;font-weight:500;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:0.5px;margin:0 0 12px;">Compartí tu puntaje y desafiá a familiares y amigos</p>
     <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;">
@@ -470,18 +460,6 @@ function bind(){
       });
     });
   }
-}
-
-function registerResult(){
-  const {tf,lp,lastGen,sc}=computeScore();
-  const nombre=document.getElementById("user-name")?document.getElementById("user-name").value.trim():"";
-  const url="https://docs.google.com/forms/d/e/1FAIpQLSf4Wl5wfAHfp1etI03mTS6qb3r4uKIBb6WK0BIDm4BfN_h8Yw/viewform?usp=pp_url"
-    +"&entry.1451495548="+encodeURIComponent(tf)
-    +"&entry.1380483806="+encodeURIComponent(lp)
-    +"&entry.1990265955="+encodeURIComponent(lastGen)
-    +"&entry.119526599="+encodeURIComponent(sc.title)
-    +"&entry.1002787024="+encodeURIComponent(nombre);
-  window.open(url,"_blank");
 }
 
 function shareByEmail(){
