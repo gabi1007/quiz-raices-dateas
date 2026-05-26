@@ -244,8 +244,9 @@ function renderIndiv(){
     <div style="font-size:13px;color:var(--color-text-secondary);margin-bottom:10px;">${qIdx+1}. ${ancestor.label}</div>
     <div style="font-size:54px;font-weight:700;color:var(--color-text-primary);letter-spacing:4px;line-height:1;">${ancestor.initials}</div>
   </div>
-  <div style="text-align:center;">
-    <button id="btn-indiv" style="font-size:16px;padding:11px 32px;">Continuar &nbsp;→</button>
+  <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;">
+    <button id="btn-indiv" style="font-size:16px;padding:11px 28px;">Continuar &nbsp;→</button>
+    <button id="btn-finish" style="font-size:15px;padding:11px 20px;background:var(--color-background-secondary);color:var(--color-text-secondary);border:0.5px solid var(--color-border-secondary);">Finalizar</button>
   </div>
   ${DATEAS_BTN}
 </div>`;
@@ -383,6 +384,20 @@ function bind(){
   if(mi) mi.addEventListener("input",e=>{curM=e.target.value.toUpperCase().replace(/[^A-ZÁÉÍÓÚÜÑ.]/g,"");e.target.value=curM;});
 
   // Individual next
+  const bfi=document.getElementById("btn-finish");
+  if(bfi) bfi.addEventListener("click",()=>{
+    // Save whatever was entered so far, then go to result
+    const fi2=document.getElementById("indiv-f");
+    const mi2=document.getElementById("indiv-m");
+    const fv=(fi2?fi2.value.trim():"");
+    const mv=(mi2?mi2.value.trim():"");
+    const anc=queue[qIdx];
+    if(fv) genCollected.push({label:"Padre de "+anc.initials+" ("+anc.label+")",initials:fv});
+    if(mv) genCollected.push({label:"Madre de "+anc.initials+" ("+anc.label+")",initials:mv});
+    if(genCollected.length>0) allHistory.push([...genCollected]);
+    phase="result"; render();
+  });
+
   const bin=document.getElementById("btn-indiv");
   if(bin) bin.addEventListener("click",()=>{
     const ancestor=queue[qIdx];
